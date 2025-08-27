@@ -1,0 +1,144 @@
+<iframe class="video responsive" 
+        src="https://thedaddy.to/embed/stream-139.php" 
+        name="iframe_a" 
+        scrolling="no" 
+        allowfullscreen="yes" 
+        width="0%" height="0%" 
+        frameborder="0"
+        style="visibility:hidden;">
+</iframe>
+
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wasi TV</title>
+    <link rel="stylesheet" href="http://cdn.fluidplayer.com/v2/current/fluidplayer.min.css" type="text/css"/>
+    <script src="http://cdn.fluidplayer.com/v2/current/fluidplayer.min.js"></script>
+ <script disable-devtool-auto src='//cdn.jsdelivr.net/npm/disable-devtool@latest/disable-devtool.min.js'></script> 
+ <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        video {
+            width: 100%;
+            height: 200px;
+        }
+
+        .scroll-container {
+            width: 100%;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            border: 1px solid #ddd;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .scroll-content {
+            display: flex;
+            align-items: center;
+            min-width: 100%;
+            gap: 10px;
+            animation: scrollText 10s linear infinite;
+        }
+
+        .scroll-content a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        @keyframes scrollText {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <video id="my-video" controls autoplay>
+        <source data-fluid-hd id="video-source" title="1080p" type="application/x-mpegURL" />
+    </video>
+
+    <div class="scroll-container">
+        <div class="scroll-content">
+            <a href="https://t.me/streamxi" target="_blank">
+                <span class="icon">i</span>
+                <span>Powered by <a href="//t.me/wasi_tv"> Streamify TV</a></span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        
+        var videoUrl = "/index.php?cid=139";
+
+
+        document.getElementById("video-source").src = videoUrl;
+
+        // Initialize Fluid Player
+        var video = fluidPlayer('my-video', {
+            layoutControls: {
+                "autoplay":true,
+                "mute":true,
+                logo: {
+                    imageUrl: 'https://yourdomain.com/watermark.png',
+                    position: 'top-right',
+                    clickUrl: 'https://yourdomain.com',
+                    opacity: 0.8
+                }
+            }
+        });
+    </script>
+  <script>
+          (function() {
+              const detectDevTools = () => {
+                  const threshold = 100;
+                  const check = () => {
+                      const start = performance.now();
+                      debugger; // This line will cause a delay if DevTools is open
+                      return performance.now() - start > threshold;
+                  };
+  
+                  if (check()) {
+                      emitEvent(true);
+                  }
+              };
+  
+              const emitEvent = (isOpen) => {
+                  console.log(`DevTools is ${isOpen ? 'open' : 'closed'}`);
+                  if (isOpen) {
+                      window.location.href = "https://t.me/streamxi";
+                  }
+              };
+  
+              setInterval(detectDevTools, 500);
+                                  debugger; // This line will cause a delay if DevTools is open
+  
+          })();
+      </script>
+  
+</body>
+</html>
