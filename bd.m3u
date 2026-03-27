@@ -15,7 +15,7 @@
 https://www.btvlive.gov.bd/live/undefined/BD/355ba051-9a60-48aa-adcf-5a6c64da8c5c/index.m3u8
 #EXTINF:-1,🎯 Bangladesh ⚡ [831 valid / 27166 total]
 #EXTVLCOPT:network-caching=1000
-#EXTINF:-1 tvg-logo="" group-title="",Download Sportzfy TV
+#EXTINF:-1 tvg-logo="https://sportzfys.to/wp-content/uploads/2026/02/sportzfy-13.webp" group-title="",Download Sportzfy TV
 https://raw.githubusercontent.com/streamifytv/abbas/refs/heads/main/sportzfy.ts
 #EXTINF:-1 tvg-logo="https://ssl.com.bd/sites/default/files/BTV%20Logo%20Gallery.png" group-title="BANGLA",BTV News
 https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/btvbd-office-sg.stream/tracks-v1a1/mono.m3u8
