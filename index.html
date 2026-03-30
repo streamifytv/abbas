@@ -3,158 +3,747 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>streamify URL generator</title>
+    <title>M3U Playlist Modifier</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Outfit','sans-serif'] } } } }
+    </script>
+    <style>
+        :root {
+            --bg:#08090d;--surface:#111318;--raised:#171a22;--hover:#1d2029;
+            --border:#232730;--border-h:#2e3340;--accent:#d4930d;--accent-h:#eaaa1e;
+            --accent-g:rgba(212,147,13,0.15);--text:#e2e0dd;--text-s:#9ca0ab;
+            --muted:#555a66;--danger:#dc2626;--danger-h:#ef4444;--ok:#16a34a;
+        }
+        *,*::before,*::after{box-sizing:border-box}
+        body{margin:0;background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;
+            background-image:radial-gradient(ellipse at 15% 10%,rgba(212,147,13,.04) 0%,transparent 50%),
+            radial-gradient(ellipse at 85% 80%,rgba(212,147,13,.03) 0%,transparent 45%)}
+        ::-webkit-scrollbar{width:7px;height:7px}
+        ::-webkit-scrollbar-track{background:var(--bg)}
+        ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+        ::-webkit-scrollbar-thumb:hover{background:var(--border-h)}
+        .wrap{max-width:1400px;margin:0 auto;padding:1.25rem}
+
+        /* Header */
+        .hdr{text-align:center;padding:1.75rem 0 1.25rem;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
+        .hdr h1{font-size:clamp(1.8rem,5vw,3rem);font-weight:900;letter-spacing:-.03em;margin:0 0 .3rem;
+            background:linear-gradient(135deg,var(--text) 30%,var(--accent) 100%);-webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;background-clip:text}
+        .hdr p{color:var(--text-s);font-weight:300;font-size:1rem;margin:0}
+
+        /* Cards */
+        .sec{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem}
+        .sec-t{font-size:1.05rem;font-weight:700;margin:0 0 .85rem;display:flex;align-items:center;gap:.5rem}
+        .sec-t i{color:var(--accent);font-size:.9rem}
+
+        /* Inputs */
+        .ipt{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.55rem .8rem;
+            color:var(--text);font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;transition:border-color .2s,box-shadow .2s}
+        .ipt:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-g)}
+        .ipt::placeholder{color:var(--muted)}
+        textarea.ipt{resize:vertical;min-height:80px;font-size:.8rem;line-height:1.5}
+        select.ipt{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239ca0ab' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .7rem center;padding-right:2rem}
+        .lbl{display:block;font-size:.72rem;font-weight:600;color:var(--text-s);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.04em}
+
+        /* Buttons */
+        .btn{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1.1rem;border-radius:7px;
+            font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
+        .btn-p{background:var(--accent);color:#0a0a0a}
+        .btn-p:hover{background:var(--accent-h);transform:translateY(-1px);box-shadow:0 4px 14px var(--accent-g)}
+        .btn-o{background:transparent;color:var(--text-s);border:1px solid var(--border)}
+        .btn-o:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-g)}
+        .btn-d{background:var(--danger);color:#fff}
+        .btn-d:hover{background:var(--danger-h)}
+        .btn-sm{padding:.35rem .7rem;font-size:.78rem}
+
+        /* File input */
+        .file-w{position:relative;display:flex;align-items:center;gap:.6rem}
+        .file-w input[type=file]{position:absolute;width:0;height:0;opacity:0}
+        .file-n{font-size:.82rem;color:var(--text-s);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+        /* Source textarea */
+        .src-ta{font-family:'Courier New',monospace;font-size:.78rem;line-height:1.55;min-height:180px;transition:border-color .3s}
+        .src-ta.flash-ok{border-color:var(--ok)!important}
+        .sync-b{font-size:.65rem;font-weight:600;padding:.12rem .45rem;border-radius:8px;text-transform:uppercase;letter-spacing:.04em;margin-left:.5rem}
+        .sync-b.ok{background:rgba(22,163,74,.14);color:#22c55e}
+        .sync-b.ed{background:var(--accent-g);color:var(--accent)}
+        .src-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:.5rem;font-size:.78rem;color:var(--text-s)}
+
+        /* Stats */
+        .stats{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding:.6rem 0;margin-bottom:.4rem}
+        .chip{display:inline-flex;align-items:center;gap:.35rem;font-size:.8rem;color:var(--text-s);
+            background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:.25rem .7rem}
+        .chip strong{color:var(--accent);font-weight:700}
+
+        /* Toolbar */
+        .toolbar{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.85rem}
+        .toolbar .ipt{max-width:250px;flex:1;min-width:140px}
+
+        /* Channel Grid */
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:.9rem}
+        @media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+        /* Channel Card */
+        .ccard{background:var(--raised);border:1px solid var(--border);border-radius:9px;overflow:hidden;
+            transition:transform .25s,border-color .25s,box-shadow .25s;animation:cIn .3s ease both}
+        .ccard:hover{transform:translateY(-2px);border-color:var(--border-h);box-shadow:0 6px 24px rgba(0,0,0,.3)}
+        .ccard.del{animation:cOut .3s ease forwards}
+        @keyframes cIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+        @keyframes cOut{to{opacity:0;transform:scale(.92) translateY(8px)}}
+
+        .cimg{position:relative;width:100%;aspect-ratio:16/9;background:var(--bg);overflow:hidden}
+        .cimg img{width:100%;height:100%;object-fit:contain;padding:6px;display:block}
+        .cimg-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.2rem;
+            font-weight:800;color:var(--muted);background:linear-gradient(135deg,var(--bg),var(--surface))}
+        .c-x{position:absolute;top:5px;left:5px;width:24px;height:24px;border-radius:4px;background:rgba(220,38,38,.85);
+            border:1px solid rgba(255,255,255,.1);color:#fff;font-size:.65rem;cursor:pointer;display:flex;
+            align-items:center;justify-content:center;opacity:.6;transition:all .2s;z-index:3;backdrop-filter:blur(3px)}
+        .c-x:hover{opacity:1;transform:scale(1.15);background:rgba(239,68,68,.95)}
+
+        .cbody{padding:.65rem .75rem;cursor:pointer}
+        .chint{font-size:.68rem;color:var(--muted);margin-top:.35rem;display:flex;align-items:center;gap:.3rem;transition:color .2s}
+        .cbody:hover .chint{color:var(--text-s)}
+
+        /* Edit inputs (stealth) */
+        .ei{background:transparent;border:1px solid transparent;border-radius:4px;padding:1px 5px;
+            color:var(--text);font-family:'Outfit',sans-serif;width:100%;outline:none;transition:border-color .15s,background .15s}
+        .ei:hover{border-color:var(--border);background:rgba(0,0,0,.15)}
+        .ei:focus{border-color:var(--accent);background:var(--bg)}
+        .ei::placeholder{color:var(--muted)}
+        .ei-name{font-size:.88rem;font-weight:600}
+        .ei-grp{font-size:.68rem}
+
+        /* Card detail */
+        .cdet{max-height:0;overflow:hidden;transition:max-height .35s ease;border-top:0 solid var(--border)}
+        .cdet.open{max-height:600px;border-top-width:1px}
+        .cdet-in{padding:.65rem .75rem}
+
+        /* Attr rows */
+        .arow{display:flex;align-items:center;gap:3px;margin-bottom:3px}
+        .arow .ak{flex:0 0 34%;font-weight:600;color:var(--accent);font-size:.72rem}
+        .arow .aeq{color:var(--muted);font-size:.7rem;flex-shrink:0}
+        .arow .av{flex:1;font-size:.72rem}
+        .ar-btn{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+            border-radius:3px;border:none;cursor:pointer;font-size:.6rem;transition:all .15s;background:transparent;color:var(--muted)}
+        .ar-btn.rm:hover{background:rgba(220,38,38,.2);color:var(--danger)}
+        .ar-btn.ad:hover{background:var(--accent-g);color:var(--accent)}
+        .cdet-label{font-size:.68rem;color:var(--muted);font-weight:600;margin:.4rem 0 .2rem;text-transform:uppercase;letter-spacing:.04em}
+        .cdet-url{margin-top:.4rem;padding-top:.4rem;border-top:1px dashed var(--border)}
+
+        /* Empty state */
+        .empty{text-align:center;padding:3.5rem 1.5rem;color:var(--muted)}
+        .empty i{font-size:2.5rem;margin-bottom:.75rem;opacity:.35}
+        .empty p{margin:.25rem 0}
+        .empty .sub{font-size:.82rem}
+
+        /* Modal */
+        .mo{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(5px);z-index:1000;
+            display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .25s}
+        .mo.on{opacity:1;pointer-events:auto}
+        .mo-box{background:var(--raised);border:1px solid var(--border);border-radius:12px;padding:1.5rem;
+            max-width:400px;width:100%;transform:scale(.92) translateY(8px);transition:transform .3s}
+        .mo.on .mo-box{transform:scale(1) translateY(0)}
+        .mo-box h3{font-size:1.1rem;font-weight:700;margin:0 0 .5rem}
+        .mo-box p{color:var(--text-s);font-size:.88rem;margin:0 0 .35rem;line-height:1.45}
+        .mo-name{color:var(--accent);font-weight:600;background:var(--accent-g);padding:.15rem .45rem;
+            border-radius:4px;display:inline-block;margin:.4rem 0 .8rem;max-width:100%;word-break:break-all;font-size:.88rem}
+        .mo-acts{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1rem}
+
+        /* Toast */
+        .tc{position:fixed;top:1rem;right:1rem;z-index:2000;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
+        .toast{padding:.55rem 1rem;border-radius:7px;font-size:.82rem;font-weight:500;color:#fff;pointer-events:auto;
+            transform:translateX(120%);transition:transform .3s;box-shadow:0 4px 16px rgba(0,0,0,.4);display:flex;align-items:center;gap:.4rem}
+        .toast.show{transform:translateX(0)}
+        .t-ok{background:var(--ok)}.t-er{background:var(--danger)}.t-in{background:#2563eb}
+
+        /* Add form */
+        .fg{display:flex;flex-direction:column}
+        .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.75rem}
+        .pos-opts{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+        .pos-opts label{display:flex;align-items:center;gap:.35rem;font-size:.85rem;color:var(--text-s);cursor:pointer}
+        .pos-opts input[type=radio]{accent-color:var(--accent);width:15px;height:15px}
+        .carow{display:flex;gap:.4rem;align-items:flex-end;margin-bottom:.4rem;animation:cIn .2s ease}
+        .carow .ipt{flex:1}
+
+        .spinner{width:16px;height:16px;border:2px solid transparent;border-top-color:currentColor;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @media(prefers-reduced-motion:reduce){.ccard,.toast,.mo,.mo-box{transition:none!important;animation:none!important}}
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-            <!-- Form Header -->
-            <div class="bg-blue-600 px-6 py-4">
-                <h2 class="text-md font-bold text-white">streamify URL generator</h2>
-            </div>
-            
-            <!-- Form Body -->
-            <div class="p-6">
-                <form id="urlForm" class="space-y-4">
-                    <div>
-                        <label for="slug" class="block text-sm font-medium text-gray-700 mb-1">Channel ID</label>
-                        <input 
-                            type="text" 
-                            id="slug" 
-                            name="slug" 
-                            autocomplete="cname"
-                            placeholder="e.g. premium97" 
-                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            required
-                        >
-                        <p class="mt-1 text-sm text-gray-500">Enter the channel ID to generate the stream URL</p>
-                    </div>
-                    
-                    <button 
-                        type="submit" 
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200 flex items-center justify-center"
-                    >
-                        <i class="fas fa-link mr-2"></i> Generate URL
-                    </button>
-                </form>
-                
-                <!-- Loading State -->
-                <div id="loading" class="hidden mt-6 text-center">
-                    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto"></div>
-                    <p class="mt-2 text-gray-600">Fetching URL...</p>
-                </div>
-                
-                <!-- Results Section -->
-                <div id="results" class="hidden mt-6 space-y-4">
-                    <h2 class="text-lg font-semibold text-gray-800">Generated URL</h2>
-                    
-                    <!-- Full URL Card -->
-                    <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                            <h3 class="text-sm font-medium text-gray-700">Stream URL</h3>
-                        </div>
-                        <div class="p-4">
-                            <div class="flex items-center">
-                                <a id="fullUrl" href="#" target="_blank" class="text-blue-600 hover:text-blue-800 break-all flex-grow"></a>
-                                <button 
-                                    onclick="copyToClipboard('fullUrl')" 
-                                    class="ml-2 p-2 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100"
-                                    title="Copy to clipboard"
-                                >
-                                    <i class="far fa-copy"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Error State -->
-                <div id="error" class="hidden mt-6 p-4 bg-red-50 border-l-4 border-red-500">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-exclamation-circle text-red-500"></i>
-                        </div>
-                        <div class="ml-3">
-                            <h3 class="text-sm font-medium text-red-800" id="errorMessage"></h3>
-                        </div>
-                    </div>
-                </div>
+<body>
+<div class="wrap">
+    <!-- Toasts -->
+    <div class="tc" id="tc"></div>
+
+    <!-- Confirm Modal -->
+    <div class="mo" id="mo" role="dialog" aria-modal="true">
+        <div class="mo-box">
+            <h3><i class="fa-solid fa-triangle-exclamation" style="color:var(--danger);margin-right:.25rem"></i>Delete Channel</h3>
+            <p>You are about to remove:</p>
+            <div class="mo-name" id="moName"></div>
+            <p style="font-size:.78rem;color:var(--muted)">This cannot be undone.</p>
+            <div class="mo-acts">
+                <button class="btn btn-o" onclick="hideMo()">Cancel</button>
+                <button class="btn btn-d" onclick="doDel()">Delete</button>
             </div>
         </div>
     </div>
 
-    <script>
-        document.getElementById('urlForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const slug = document.getElementById('slug').value.trim();
-            const loading = document.getElementById('loading');
-            const results = document.getElementById('results');
-            const error = document.getElementById('error');
-            
-            // Reset UI
-            results.classList.add('hidden');
-            error.classList.add('hidden');
-            loading.classList.remove('hidden');
-            
-            try {
-                const fullURL = await getFinalURL(slug);
-                
-                // Display results
-                document.getElementById('fullUrl').textContent = fullURL;
-                document.getElementById('fullUrl').href = fullURL;
-                
-                loading.classList.add('hidden');
-                results.classList.remove('hidden');
-            } catch (err) {
-                loading.classList.add('hidden');
-                document.getElementById('errorMessage').textContent = err.message;
-                error.classList.remove('hidden');
-            }
-        });
+    <!-- Header -->
+    <header class="hdr">
+        <h1>M3U Playlist Modifier</h1>
+        <p>Load, edit inline, and export IPTV playlists with full attribute control</p>
+    </header>
 
-        async function getFinalURL(slug) {
-            const lookupUrl = 'https://forcedtoplay.xyz/server_lookup.php?channel_id='+slug;
+    <!-- Load -->
+    <section class="sec">
+        <div class="sec-t"><i class="fa-solid fa-folder-open"></i>Load Playlist</div>
+        <div class="flex flex-col sm:flex-row gap-3">
+            <div class="file-w flex-1">
+                <button class="btn btn-o" onclick="document.getElementById('fi').click()"><i class="fa-solid fa-upload"></i>Browse</button>
+                <input type="file" id="fi" accept=".m3u,.m3u8,.txt" onchange="onFile(event)">
+                <span class="file-n" id="fn">No file selected</span>
+            </div>
+            <div class="flex-1 flex gap-2">
+                <input type="text" class="ipt" id="urlI" placeholder="Paste M3U URL here...">
+                <button class="btn btn-p" id="urlB" onclick="onUrl()"><i class="fa-solid fa-link"></i>Load</button>
+            </div>
+        </div>
+    </section>
 
-            try {
-                const response = await fetch(lookupUrl);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                const data = await response.json();
-                const serverKey = data.server_key;
+    <!-- Source Textarea -->
+    <section class="sec" id="srcSec">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+            <div class="sec-t" style="margin-bottom:0"><i class="fa-solid fa-code"></i>M3U Source<span class="sync-b ok" id="syncB">Synced</span></div>
+            <div class="flex gap-2">
+                <button class="btn btn-o btn-sm" onclick="doCopy()"><i class="fa-solid fa-copy"></i>Copy</button>
+                <button class="btn btn-o btn-sm" onclick="doDl()"><i class="fa-solid fa-download"></i>Download</button>
+            </div>
+        </div>
+        <textarea class="ipt src-ta" id="srcTa" placeholder="Paste M3U content here, or load from file/URL above...&#10;&#10;Example:&#10;#EXTM3U&#10;#EXTINF:-1 tvg-id=&quot;bbc1&quot; tvg-name=&quot;BBC One&quot; tvg-logo=&quot;http://logo.png&quot; group-title=&quot;News&quot;,BBC One HD&#10;http://stream.url/live.m3u8" oninput="onTaInput()"></textarea>
+        <div class="src-meta" id="srcMeta"></div>
+    </section>
 
-                // Construct and return only the full URL
-                return `https://dd.fbcdntv247.cfd/?url=https://${serverKey}new.newkso.ru/${serverKey}/${slug}/mono.m3u8&data=UmVmZXJlcj1odHRwczovL2xlZnR0b3BsYXkueHl6LyJ8T3JpZ2luPSJodHRwczovL2xlZnR0b3BsYXkueHl6Ig==`;
-            } catch (error) {
-                console.error('Error fetching server key:', error);
-                throw new Error('Failed to generate URL. Please check the channel ID and try again.');
-            }
+    <!-- Stats + Toolbar -->
+    <div id="tbSec" style="display:none">
+        <div class="stats" id="stats"></div>
+        <div class="toolbar">
+            <div style="position:relative;flex:1;min-width:140px;max-width:280px">
+                <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.78rem"></i>
+                <input type="text" class="ipt" id="sI" placeholder="Search channels..." style="padding-left:2rem" oninput="renderCards()">
+            </div>
+            <select class="ipt" id="gF" onchange="renderCards()" style="max-width:200px"><option value="">All Groups</option></select>
+            <button class="btn btn-o btn-sm" onclick="clearF()"><i class="fa-solid fa-xmark"></i>Clear</button>
+        </div>
+    </div>
+
+    <!-- Channel Grid -->
+    <section id="gridSec">
+        <div class="empty" id="emp">
+            <i class="fa-solid fa-tv"></i>
+            <p>No playlist loaded</p>
+            <p class="sub">Upload a file, paste a URL, or type M3U content directly above</p>
+        </div>
+        <div class="grid" id="grid" style="display:none"></div>
+    </section>
+
+    <!-- Add Channel -->
+    <section class="sec">
+        <div class="sec-t"><i class="fa-solid fa-plus-circle"></i>Add New Channel</div>
+        <form id="addF" onsubmit="onAdd(event)">
+            <div class="mb-3">
+                <span class="lbl">Position</span>
+                <div class="pos-opts">
+                    <label><input type="radio" name="pt" value="end" checked onchange="togPos()">Append to end</label>
+                    <label><input type="radio" name="pt" value="at" onchange="togPos()">Insert at position
+                        <input type="number" class="ipt" id="posN" min="1" value="1" style="width:75px;padding:.3rem .5rem;font-size:.82rem;display:none" disabled>
+                    </label>
+                </div>
+            </div>
+            <div class="fgrid mb-3">
+                <div class="fg"><label class="lbl">Channel Name *</label><input type="text" class="ipt" id="aN" placeholder="BBC One HD" required></div>
+                <div class="fg"><label class="lbl">Stream URL *</label><input type="url" class="ipt" id="aU" placeholder="http://example.com/stream.m3u8" required></div>
+            </div>
+            <div class="fgrid mb-3">
+                <div class="fg" style="max-width:180px"><label class="lbl">Duration</label><input type="text" class="ipt" id="aD" value="-1"></div>
+                <div class="fg"><label class="lbl">tvg-id</label><input type="text" class="ipt" id="aTi" placeholder="channel_id"></div>
+                <div class="fg"><label class="lbl">tvg-name</label><input type="text" class="ipt" id="aTn" placeholder="Channel Name"></div>
+                <div class="fg"><label class="lbl">tvg-logo</label><input type="text" class="ipt" id="aTl" placeholder="http://logo.url/img.png"></div>
+                <div class="fg"><label class="lbl">group-title</label><input type="text" class="ipt" id="aG" placeholder="News"></div>
+            </div>
+            <div class="mb-3">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="lbl" style="margin-bottom:0">Custom Attributes</span>
+                    <button type="button" class="btn btn-o btn-sm" onclick="addCARow()"><i class="fa-solid fa-plus"></i>Add</button>
+                </div>
+                <div id="caBox"></div>
+            </div>
+            <button type="submit" class="btn btn-p"><i class="fa-solid fa-plus"></i>Add Channel to Playlist</button>
+        </form>
+    </section>
+
+    <footer style="text-align:center;padding:1.25rem 0 .5rem;color:var(--muted);font-size:.75rem">
+        All processing is local in your browser. No data leaves your device.
+    </footer>
+</div>
+
+<script>
+/* ===== State ===== */
+let chs = [];
+let hdr = '#EXTM3U';
+let delIdx = -1;
+let taTimer = null;
+let syncing = false;
+
+/* ===== Parse M3U ===== */
+function parse(text) {
+    if (text.charCodeAt(0) === 0xFEFF) text = text.substring(1);
+    const lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+    const res = [];
+    let cur = null;
+    for (let i = 0; i < lines.length; i++) {
+        const l = lines[i].trim();
+        if (!l) continue;
+        if (i === 0 && l.startsWith('#EXTM3U')) { hdr = l; continue; }
+        if (l.startsWith('#EXTINF:')) {
+            cur = parseInf(l);
+        } else if (l.startsWith('#')) {
+            if (cur) { if (!cur.extras) cur.extras = []; cur.extras.push(l); }
+        } else if (cur) {
+            cur.url = l; res.push(cur); cur = null;
         }
+    }
+    if (cur) { cur.url = ''; res.push(cur); }
+    return res;
+}
 
-        function copyToClipboard(elementId) {
-            const element = document.getElementById(elementId);
-            const text = element.textContent;
-            
-            navigator.clipboard.writeText(text).then(() => {
-                // Show feedback
-                const button = element.nextElementSibling;
-                button.innerHTML = '<i class="fas fa-check"></i>';
-                button.classList.remove('text-gray-500', 'hover:text-gray-700');
-                button.classList.add('text-green-500');
-                
-                // Reset after 2 seconds
-                setTimeout(() => {
-                    button.innerHTML = '<i class="far fa-copy"></i>';
-                    button.classList.add('text-gray-500', 'hover:text-gray-700');
-                    button.classList.remove('text-green-500');
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
+function parseInf(line) {
+    const af = line.substring(8);
+    const ci = af.lastIndexOf(',');
+    if (ci === -1) return { dur: '-1', attrs: {}, name: af.trim() || 'Unknown', logo: '', url: '', extras: [] };
+    const bc = af.substring(0, ci).trim();
+    const nm = af.substring(ci + 1).trim() || 'Unknown';
+    const attrs = {};
+    const rx = /([a-zA-Z][\w-]*)="([^"]*)"/g;
+    let m;
+    while ((m = rx.exec(bc)) !== null) attrs[m[1]] = m[2];
+    const dur = bc.replace(/[a-zA-Z][\w-]*="[^"]*"/g, '').replace(/\s+/g, ' ').trim();
+    return { dur: dur || '-1', attrs, name: nm, logo: attrs['tvg-logo'] || '', url: '', extras: [] };
+}
+
+/* ===== Rebuild M3U ===== */
+function build() {
+    let o = hdr + '\n';
+    for (const c of chs) {
+        let inf = '#EXTINF:' + c.dur;
+        for (const [k, v] of Object.entries(c.attrs)) inf += ` ${k}="${v}"`;
+        inf += ',' + c.name;
+        o += inf + '\n';
+        if (c.extras && c.extras.length) for (const e of c.extras) o += e + '\n';
+        o += c.url + '\n';
+    }
+    return o.trimEnd();
+}
+
+/* ===== Sync ===== */
+function syncToTa() {
+    syncing = true;
+    const ta = document.getElementById('srcTa');
+    ta.value = build();
+    ta.classList.add('flash-ok');
+    setTimeout(() => ta.classList.remove('flash-ok'), 350);
+    syncing = false;
+    updMeta();
+    setSync('ok');
+}
+
+function onTaInput() {
+    if (syncing) return;
+    setSync('ed');
+    clearTimeout(taTimer);
+    taTimer = setTimeout(() => { syncFromTa(); setSync('ok'); }, 450);
+}
+
+function syncFromTa() {
+    const t = document.getElementById('srcTa').value;
+    chs = parse(t);
+    renderCards(); updStats(); updMeta();
+}
+
+function flushTa() {
+    clearTimeout(taTimer);
+    const t = document.getElementById('srcTa').value;
+    if (t.trim()) chs = parse(t);
+}
+
+function setSync(s) {
+    const el = document.getElementById('syncB');
+    if (s === 'ok') { el.textContent = 'Synced'; el.className = 'sync-b ok'; }
+    else { el.textContent = 'Editing...'; el.className = 'sync-b ed'; }
+}
+
+function updMeta() {
+    const t = document.getElementById('srcTa').value;
+    const lines = t ? t.split('\n').length : 0;
+    const ch = t ? (t.match(/^#EXTINF:/gm) || []).length : 0;
+    document.getElementById('srcMeta').innerHTML =
+        `<span><i class="fa-solid fa-list-ol" style="margin-right:.25rem"></i>${lines} lines</span>` +
+        `<span><i class="fa-solid fa-tv" style="margin-right:.25rem"></i>${ch} channels detected</span>`;
+}
+
+/* ===== Groups ===== */
+function groups() {
+    const g = new Set();
+    chs.forEach(c => { if (c.attrs['group-title']) g.add(c.attrs['group-title']); });
+    return [...g].sort();
+}
+
+function gColor(n) {
+    if (!n) return 'var(--accent)';
+    let h = 0;
+    for (let i = 0; i < n.length; i++) h = n.charCodeAt(i) + ((h << 5) - h);
+    return `hsl(${((h % 360) + 360) % 360},55%,58%)`;
+}
+
+/* ===== Stats ===== */
+function updStats() {
+    const gs = groups();
+    document.getElementById('stats').innerHTML =
+        `<div class="chip"><i class="fa-solid fa-tv" style="color:var(--accent);font-size:.72rem"></i><strong>${chs.length}</strong>Channels</div>` +
+        `<div class="chip"><i class="fa-solid fa-layer-group" style="color:var(--accent);font-size:.72rem"></i><strong>${gs.length}</strong>Groups</div>`;
+    const sel = document.getElementById('gF');
+    const cv = sel.value;
+    sel.innerHTML = '<option value="">All Groups</option>';
+    gs.forEach(g => { const o = document.createElement('option'); o.value = g; o.textContent = g; sel.appendChild(o); });
+    sel.value = cv;
+    document.getElementById('posN').max = chs.length + 1;
+}
+
+/* ===== Render Cards ===== */
+function filtered() {
+    const s = document.getElementById('sI').value.toLowerCase().trim();
+    const g = document.getElementById('gF').value;
+    return chs.map((c, i) => ({ c, i })).filter(({ c }) => {
+        if (g && c.attrs['group-title'] !== g) return false;
+        if (s) { const h = (c.name + ' ' + c.url + ' ' + JSON.stringify(c.attrs)).toLowerCase(); if (!h.includes(s)) return false; }
+        return true;
+    });
+}
+
+function escH(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function escA(s) { if (!s) return ''; return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function renderCards() {
+    const grid = document.getElementById('grid');
+    const emp = document.getElementById('emp');
+    const tb = document.getElementById('tbSec');
+    if (!chs.length) { grid.style.display = 'none'; emp.style.display = ''; emp.querySelector('p').textContent = 'No playlist loaded'; emp.querySelector('.sub').textContent = 'Upload a file, paste a URL, or type M3U content directly above'; tb.style.display = 'none'; return; }
+    tb.style.display = ''; emp.style.display = 'none'; grid.style.display = '';
+    const f = filtered();
+    if (!f.length) { grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><i class="fa-solid fa-filter-circle-xmark"></i><p>No channels match</p><p class="sub">Adjust search or group filter</p></div>`; return; }
+
+    grid.innerHTML = f.map(({ c, i }, fi) => {
+        const grp = c.attrs['group-title'] || '';
+        const gc = gColor(grp);
+        const ini = c.name ? c.name.charAt(0).toUpperCase() : '?';
+        const hasL = c.logo && c.logo.length > 0;
+        let imgH;
+        if (hasL) imgH = `<img src="${escH(c.logo)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="cimg-ph" style="display:none">${escH(ini)}</div>`;
+        else imgH = `<div class="cimg-ph">${escH(ini)}</div>`;
+
+        let detH = '<div class="cdet-label">Attributes</div>';
+        Object.entries(c.attrs).forEach(([k, v]) => {
+            detH += `<div class="arow">
+                <input class="ei ak" data-ok="${escA(k)}" value="${escA(k)}" onchange="onAK(${i},this)" onclick="event.stopPropagation()" title="Edit key">
+                <span class="aeq">=</span>
+                <input class="ei av" data-ok="${escA(k)}" value="${escA(v)}" oninput="onAV(${i},this)" onclick="event.stopPropagation()" title="Edit value">
+                <button class="ar-btn rm" data-ok="${escA(k)}" onclick="event.stopPropagation();onRA(${i},this.dataset.ok)" title="Remove"><i class="fa-solid fa-xmark"></i></button>
+            </div>`;
+        });
+        detH += `<div class="arow" style="opacity:.7">
+            <input class="ei ak nak" placeholder="new key" onclick="event.stopPropagation()">
+            <span class="aeq">=</span>
+            <input class="ei av nav" placeholder="new value" onclick="event.stopPropagation()">
+            <button class="ar-btn ad" onclick="event.stopPropagation();onAA(${i},this)" title="Add attribute"><i class="fa-solid fa-plus"></i></button>
+        </div>`;
+        detH += `<div class="cdet-label" style="margin-top:.5rem">Duration</div>
+            <div class="arow"><input class="ei" style="flex:1" value="${escA(c.dur)}" oninput="onDur(${i},this.value)" onclick="event.stopPropagation()"></div>`;
+        detH += `<div class="cdet-label">Stream URL</div>
+            <div class="arow cdet-url"><input class="ei" style="flex:1;font-size:.7rem" value="${escA(c.url)}" oninput="onUrl(${i},this.value)" onclick="event.stopPropagation()"></div>`;
+        if (c.extras && c.extras.length) {
+            detH += `<div class="cdet-label" style="margin-top:.5rem">Extra Directives</div>`;
+            c.extras.forEach((el, ei) => {
+                detH += `<div class="arow"><input class="ei" style="flex:1;font-size:.7rem;color:var(--text-s)" value="${escA(el)}" oninput="onEx(${i},${ei},this.value)" onclick="event.stopPropagation()">
+                    <button class="ar-btn rm" onclick="event.stopPropagation();onREx(${i},${ei})" title="Remove"><i class="fa-solid fa-xmark"></i></button></div>`;
             });
         }
-    </script>
+
+        return `<div class="ccard" data-idx="${i}" style="animation-delay:${Math.min(fi*.025,.4)}s">
+            <div class="cimg">${imgH}<button class="c-x" onclick="event.stopPropagation();showMo(${i})" aria-label="Delete" title="Delete channel"><i class="fa-solid fa-xmark"></i></button></div>
+            <div class="cbody" onclick="togDet(${i})">
+                <input class="ei ei-name" value="${escA(c.name)}" oninput="onNm(${i},this.value)" onclick="event.stopPropagation()" title="Edit channel name">
+                <div style="margin-top:.3rem">
+                    <input class="ei ei-grp" id="gb-${i}" value="${escA(grp)}" oninput="onGrp(${i},this.value)" onclick="event.stopPropagation()" title="Edit group" style="${grp?'background:'+gc+'10;color:'+gc+';font-weight:500':''}">
+                </div>
+                <div class="chint" id="hnt-${i}"><i class="fa-solid fa-chevron-down"></i>Click for details</div>
+            </div>
+            <div class="cdet" id="det-${i}"><div class="cdet-in">${detH}</div></div>
+        </div>`;
+    }).join('');
+}
+
+function togDet(i) {
+    const el = document.getElementById('det-' + i);
+    const h = document.getElementById('hnt-' + i);
+    if (!el) return;
+    el.classList.toggle('open');
+    if (h) h.innerHTML = el.classList.contains('open') ? '<i class="fa-solid fa-chevron-up"></i>Click to collapse' : '<i class="fa-solid fa-chevron-down"></i>Click for details';
+}
+
+/* ===== Card Edit Handlers ===== */
+function onNm(i, v) {
+    chs[i].name = v;
+    if (!chs[i].logo) { const ph = document.querySelector(`.ccard[data-idx="${i}"] .cimg-ph`); if (ph) ph.textContent = v ? v.charAt(0).toUpperCase() : '?'; }
+    syncToTa();
+}
+
+function onGrp(i, v) {
+    chs[i].attrs['group-title'] = v;
+    const inp = document.getElementById('gb-' + i);
+    if (inp) {
+        if (v) { inp.style.background = gColor(v) + '10'; inp.style.color = gColor(v); inp.style.fontWeight = '500'; }
+        else { inp.style.background = ''; inp.style.color = ''; inp.style.fontWeight = ''; }
+    }
+    syncToTa();
+}
+
+function onAV(i, el) {
+    const k = el.dataset.ok;
+    chs[i].attrs[k] = el.value;
+    if (k === 'tvg-logo') { chs[i].logo = el.value; updImg(i); }
+    syncToTa();
+}
+
+function onAK(i, el) {
+    const ok = el.dataset.ok;
+    const nk = el.value.trim();
+    if (!nk) { el.value = ok; return; }
+    if (nk !== ok && chs[i].attrs.hasOwnProperty(nk)) { toast('Key already exists', 'er'); el.value = ok; return; }
+    if (nk === ok) return;
+    const v = chs[i].attrs[ok];
+    delete chs[i].attrs[ok];
+    chs[i].attrs[nk] = v;
+    if (ok === 'tvg-logo') chs[i].logo = '';
+    if (nk === 'tvg-logo') chs[i].logo = v;
+    el.dataset.ok = nk;
+    const row = el.closest('.arow');
+    if (row) {
+        const vi = row.querySelector('.av'); if (vi) vi.dataset.ok = nk;
+        const rb = row.querySelector('.ar-btn.rm'); if (rb) rb.dataset.ok = nk;
+    }
+    syncToTa();
+}
+
+function onRA(i, k) {
+    delete chs[i].attrs[k];
+    if (k === 'tvg-logo') { chs[i].logo = ''; updImg(i); }
+    syncToTa();
+    reDet(i);
+}
+
+function onAA(i, btn) {
+    const row = btn.closest('.arow');
+    const ki = row.querySelector('.nak');
+    const vi = row.querySelector('.nav');
+    const k = ki.value.trim(), v = vi.value.trim();
+    if (!k) { toast('Key required', 'er'); ki.focus(); return; }
+    if (chs[i].attrs.hasOwnProperty(k)) { toast('Key exists', 'er'); ki.focus(); return; }
+    chs[i].attrs[k] = v;
+    if (k === 'tvg-logo') { chs[i].logo = v; updImg(i); }
+    syncToTa();
+    reDet(i);
+}
+
+function onDur(i, v) { chs[i].dur = v; syncToTa(); }
+function onUrl(i, v) { chs[i].url = v; syncToTa(); }
+function onEx(i, ei, v) { chs[i].extras[ei] = v; syncToTa(); }
+function onREx(i, ei) { chs[i].extras.splice(ei, 1); syncToTa(); reDet(i); }
+
+function updImg(i) {
+    const card = document.querySelector(`.ccard[data-idx="${i}"]`);
+    if (!card) return;
+    const wrap = card.querySelector('.cimg');
+    const xb = wrap.querySelector('.c-x');
+    const ini = chs[i].name ? chs[i].name.charAt(0).toUpperCase() : '?';
+    if (chs[i].logo) {
+        wrap.innerHTML = `<img src="${escH(chs[i].logo)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="cimg-ph" style="display:none">${escH(ini)}</div>`;
+    } else {
+        wrap.innerHTML = `<div class="cimg-ph">${escH(ini)}</div>`;
+    }
+    wrap.appendChild(xb);
+}
+
+function reDet(i) {
+    const det = document.getElementById('det-' + i);
+    if (!det) return;
+    const c = chs[i];
+    const inn = det.querySelector('.cdet-in');
+    if (!inn) return;
+    let h = '<div class="cdet-label">Attributes</div>';
+    Object.entries(c.attrs).forEach(([k, v]) => {
+        h += `<div class="arow">
+            <input class="ei ak" data-ok="${escA(k)}" value="${escA(k)}" onchange="onAK(${i},this)" onclick="event.stopPropagation()" title="Edit key">
+            <span class="aeq">=</span>
+            <input class="ei av" data-ok="${escA(k)}" value="${escA(v)}" oninput="onAV(${i},this)" onclick="event.stopPropagation()" title="Edit value">
+            <button class="ar-btn rm" data-ok="${escA(k)}" onclick="event.stopPropagation();onRA(${i},this.dataset.ok)" title="Remove"><i class="fa-solid fa-xmark"></i></button>
+        </div>`;
+    });
+    h += `<div class="arow" style="opacity:.7">
+        <input class="ei ak nak" placeholder="new key" onclick="event.stopPropagation()">
+        <span class="aeq">=</span>
+        <input class="ei av nav" placeholder="new value" onclick="event.stopPropagation()">
+        <button class="ar-btn ad" onclick="event.stopPropagation();onAA(${i},this)" title="Add attribute"><i class="fa-solid fa-plus"></i></button>
+    </div>`;
+    h += `<div class="cdet-label" style="margin-top:.5rem">Duration</div>
+        <div class="arow"><input class="ei" style="flex:1" value="${escA(c.dur)}" oninput="onDur(${i},this.value)" onclick="event.stopPropagation()"></div>`;
+    h += `<div class="cdet-label">Stream URL</div>
+        <div class="arow cdet-url"><input class="ei" style="flex:1;font-size:.7rem" value="${escA(c.url)}" oninput="onUrl(${i},this.value)" onclick="event.stopPropagation()"></div>`;
+    if (c.extras && c.extras.length) {
+        h += `<div class="cdet-label" style="margin-top:.5rem">Extra Directives</div>`;
+        c.extras.forEach((el, ei) => {
+            h += `<div class="arow"><input class="ei" style="flex:1;font-size:.7rem;color:var(--text-s)" value="${escA(el)}" oninput="onEx(${i},${ei},this.value)" onclick="event.stopPropagation()">
+                <button class="ar-btn rm" onclick="event.stopPropagation();onREx(${i},${ei})" title="Remove"><i class="fa-solid fa-xmark"></i></button></div>`;
+        });
+    }
+    inn.innerHTML = h;
+}
+
+/* ===== Delete ===== */
+function showMo(i) { delIdx = i; document.getElementById('moName').textContent = chs[i].name; document.getElementById('mo').classList.add('on'); }
+function hideMo() { document.getElementById('mo').classList.remove('on'); delIdx = -1; }
+function doDel() {
+    if (delIdx < 0 || delIdx >= chs.length) return;
+    const idx = delIdx; hideMo();
+    const card = document.querySelector(`.ccard[data-idx="${idx}"]`);
+    if (card) {
+        card.classList.add('del');
+        setTimeout(() => { chs.splice(idx, 1); syncToTa(); renderCards(); updStats(); toast('Channel removed', 'ok'); }, 280);
+    } else { chs.splice(idx, 1); syncToTa(); renderCards(); updStats(); toast('Channel removed', 'ok'); }
+}
+document.getElementById('mo').addEventListener('click', function(e) { if (e.target === this) hideMo(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') hideMo(); });
+
+/* ===== Load ===== */
+function onFile(e) {
+    const f = e.target.files[0]; if (!f) return;
+    document.getElementById('fn').textContent = f.name;
+    const r = new FileReader();
+    r.onload = ev => load(ev.target.result);
+    r.readAsText(f, 'utf-8');
+}
+function onUrl() {
+    const u = document.getElementById('urlI').value.trim();
+    if (!u) { toast('Enter a URL', 'er'); return; }
+    const b = document.getElementById('urlB');
+    b.disabled = true; b.innerHTML = '<span class="spinner"></span>Loading';
+    fetch(u).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+        .then(t => { load(t); toast('Loaded from URL', 'ok'); })
+        .catch(e => toast('Failed: ' + e.message, 'er'))
+        .finally(() => { b.disabled = false; b.innerHTML = '<i class="fa-solid fa-link"></i>Load'; });
+}
+function load(text) {
+    document.getElementById('srcTa').value = text;
+    chs = parse(text);
+    renderCards(); updStats(); syncToTa();
+    toast(`Loaded ${chs.length} channels`, 'ok');
+    document.getElementById('srcSec').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ===== Add Channel ===== */
+function togPos() {
+    const at = document.querySelector('input[name="pt"][value="at"]').checked;
+    const n = document.getElementById('posN');
+    n.style.display = at ? '' : 'none'; n.disabled = !at;
+}
+function addCARow() {
+    const r = document.createElement('div'); r.className = 'carow';
+    r.innerHTML = `<div class="fg" style="flex:1"><input type="text" class="ipt ca-k" placeholder="attribute-name"></div>
+        <div class="fg" style="flex:1.5"><input type="text" class="ipt ca-v" placeholder="value"></div>
+        <button type="button" class="btn btn-o btn-sm" onclick="this.parentElement.remove()" style="padding:.3rem .5rem"><i class="fa-solid fa-xmark"></i></button>`;
+    document.getElementById('caBox').appendChild(r);
+}
+function onAdd(e) {
+    e.preventDefault();
+    flushTa();
+    const nm = document.getElementById('aN').value.trim();
+    const url = document.getElementById('aU').value.trim();
+    if (!nm || !url) { toast('Name and URL required', 'er'); return; }
+    const attrs = {};
+    const ids = [['aTi','tvg-id'],['aTn','tvg-name'],['aTl','tvg-logo'],['aG','group-title']];
+    ids.forEach(([id, k]) => { const v = document.getElementById(id).value.trim(); if (v) attrs[k] = v; });
+    document.querySelectorAll('#caBox .carow').forEach(r => {
+        const k = r.querySelector('.ca-k').value.trim();
+        const v = r.querySelector('.ca-v').value.trim();
+        if (k) attrs[k] = v;
+    });
+    const dur = document.getElementById('aD').value.trim() || '-1';
+    const nc = { dur, attrs, name: nm, logo: attrs['tvg-logo'] || '', url, extras: [] };
+    const pt = document.querySelector('input[name="pt"]:checked').value;
+    if (pt === 'at') {
+        let p = parseInt(document.getElementById('posN').value, 10);
+        if (isNaN(p) || p < 1) p = 1;
+        if (p > chs.length) p = chs.length;
+        chs.splice(p - 1, 0, nc);
+    } else { chs.push(nc); }
+    syncToTa(); renderCards(); updStats();
+    toast(`"${nm}" added`, 'ok');
+    document.getElementById('addF').reset();
+    document.getElementById('aD').value = '-1';
+    document.getElementById('caBox').innerHTML = '';
+    document.querySelector('input[name="pt"][value="end"]').checked = true;
+    togPos();
+}
+
+/* ===== Output Actions ===== */
+function doCopy() {
+    const t = document.getElementById('srcTa').value;
+    if (!t) { toast('Nothing to copy', 'er'); return; }
+    navigator.clipboard.writeText(t).then(() => toast('Copied', 'ok')).catch(() => {
+        const ta = document.getElementById('srcTa'); ta.select(); document.execCommand('copy'); toast('Copied', 'ok');
+    });
+}
+function doDl() {
+    const t = document.getElementById('srcTa').value;
+    if (!t) { toast('Nothing to download', 'er'); return; }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([t], { type: 'audio/mpegurl' }));
+    a.download = 'playlist_modified.m3u';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(a.href); toast('Download started', 'ok');
+}
+
+/* ===== Search ===== */
+function clearF() { document.getElementById('sI').value = ''; document.getElementById('gF').value = ''; renderCards(); }
+
+/* ===== Toast ===== */
+function toast(msg, type) {
+    const c = document.getElementById('tc');
+    const t = document.createElement('div');
+    const cls = { ok: 't-ok', er: 't-er', in: 't-in' };
+    const ico = { ok: 'fa-check', er: 'fa-xmark', in: 'fa-info' };
+    t.className = `toast ${cls[type] || cls.in}`;
+    t.innerHTML = `<i class="fa-solid ${ico[type] || ico.in}"></i>${escH(msg)}`;
+    c.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 2800);
+}
+
+/* ===== Init ===== */
+updStats(); updMeta();
+</script>
 </body>
 </html>
