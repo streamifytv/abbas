@@ -18,6 +18,7 @@
             --accent-g:rgba(212,147,13,.15);--text:#e2e0dd;--text-s:#9ca0ab;
             --muted:#555a66;--danger:#dc2626;--danger-h:#ef4444;--ok:#16a34a;
             --filter:#0ea5e9;--filter-g:rgba(14,165,233,.12);
+            --rename:#8b5cf6;--rename-g:rgba(139,92,246,.12);--rename-h:#a78bfa;
         }
         *,*::before,*::after{box-sizing:border-box}
         body{margin:0;background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;
@@ -35,8 +36,7 @@
             -webkit-text-fill-color:transparent;background-clip:text}
         .hdr p{color:var(--text-s);font-weight:300;font-size:1rem;margin:0}
 
-        .sec{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;
-            transition:border-color .3s}
+        .sec{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;transition:border-color .3s}
         .sec.filtered{border-color:rgba(14,165,233,.35)}
         .sec-t{font-size:1.05rem;font-weight:700;margin:0 0 .85rem;display:flex;align-items:center;gap:.5rem}
         .sec-t i{color:var(--accent);font-size:.9rem}
@@ -46,7 +46,9 @@
         .ipt:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-g)}
         .ipt::placeholder{color:var(--muted)}
         textarea.ipt{resize:vertical;min-height:80px;font-size:.8rem;line-height:1.5}
-        select.ipt{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239ca0ab' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .7rem center;padding-right:2rem}
+        select.ipt{cursor:pointer;appearance:none;
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239ca0ab' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+            background-repeat:no-repeat;background-position:right .7rem center;padding-right:2rem}
         .lbl{display:block;font-size:.72rem;font-weight:600;color:var(--text-s);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.04em}
 
         .btn{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1.1rem;border-radius:7px;
@@ -56,10 +58,16 @@
         .btn-o{background:transparent;color:var(--text-s);border:1px solid var(--border)}
         .btn-o:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-g)}
         .btn-d{background:var(--danger);color:#fff}
-        .btn-d:hover{background:var(--danger-h)}
+        .btn-d:hover{background:var(--danger-h);transform:translateY(-1px);box-shadow:0 4px 16px rgba(220,38,38,.25)}
         .btn-sm{padding:.35rem .7rem;font-size:.78rem}
         .btn-f{background:var(--filter);color:#fff}
         .btn-f:hover{background:#0284c7;transform:translateY(-1px);box-shadow:0 4px 14px var(--filter-g)}
+        .btn-dg{background:transparent;color:var(--danger);border:1px solid rgba(220,38,38,.3)}
+        .btn-dg:hover{background:rgba(220,38,38,.1);border-color:var(--danger)}
+        .btn-rn{background:var(--rename);color:#fff}
+        .btn-rn:hover{background:var(--rename-h);transform:translateY(-1px);box-shadow:0 4px 14px var(--rename-g)}
+        .btn-rn-o{background:transparent;color:var(--rename);border:1px solid rgba(139,92,246,.3)}
+        .btn-rn-o:hover{background:var(--rename-g);border-color:var(--rename)}
 
         .file-w{position:relative;display:flex;align-items:center;gap:.6rem}
         .file-w input[type=file]{position:absolute;width:0;height:0;opacity:0}
@@ -87,6 +95,7 @@
 
         .toolbar{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.85rem}
         .toolbar .ipt{max-width:250px;flex:1;min-width:140px}
+        .toolbar-sep{width:1px;height:24px;background:var(--border);flex-shrink:0}
 
         .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:.9rem}
         @media(max-width:600px){.grid{grid-template-columns:1fr}}
@@ -139,17 +148,47 @@
         .empty p{margin:.25rem 0}
         .empty .sub{font-size:.82rem}
 
+        /* Modals */
         .mo{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(5px);z-index:1000;
             display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .25s}
         .mo.on{opacity:1;pointer-events:auto}
         .mo-box{background:var(--raised);border:1px solid var(--border);border-radius:12px;padding:1.5rem;
-            max-width:400px;width:100%;transform:scale(.92) translateY(8px);transition:transform .3s}
+            max-width:460px;width:100%;transform:scale(.92) translateY(8px);transition:transform .3s}
         .mo.on .mo-box{transform:scale(1) translateY(0)}
         .mo-box h3{font-size:1.1rem;font-weight:700;margin:0 0 .5rem}
         .mo-box p{color:var(--text-s);font-size:.88rem;margin:0 0 .35rem;line-height:1.45}
         .mo-name{color:var(--accent);font-weight:600;background:var(--accent-g);padding:.15rem .45rem;
             border-radius:4px;display:inline-block;margin:.4rem 0 .8rem;max-width:100%;word-break:break-all;font-size:.88rem}
+        .mo-group{color:var(--filter);font-weight:600;background:var(--filter-g);padding:.15rem .45rem;
+            border-radius:4px;display:inline-block;margin:.4rem 0 .3rem;font-size:.88rem}
+        .mo-count{font-size:1.6rem;font-weight:900;color:var(--danger);display:block;text-align:center;margin:.5rem 0 .2rem}
+        .mo-count-label{text-align:center;font-size:.82rem;color:var(--muted);margin-bottom:.5rem}
         .mo-acts{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1rem}
+        .mo-warn{background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:8px;
+            padding:.5rem .7rem;margin-top:.75rem;font-size:.78rem;color:var(--danger-h);display:flex;align-items:flex-start;gap:.4rem}
+        .mo-warn i{margin-top:2px;flex-shrink:0}
+        .mo-arrow{display:flex;align-items:center;justify-content:center;gap:.6rem;margin:.6rem 0 .8rem}
+        .mo-arrow .old-name{background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.2);color:var(--danger-h);
+            padding:.3rem .7rem;border-radius:6px;font-weight:600;font-size:.9rem;flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .mo-arrow .new-name{background:var(--rename-g);border:1px solid rgba(139,92,246,.25);color:var(--rename-h);
+            padding:.3rem .7rem;border-radius:6px;font-weight:600;font-size:.9rem;flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .mo-arrow .arrow-icon{color:var(--muted);font-size:1.1rem;flex-shrink:0}
+        .mo-info{background:rgba(14,165,233,.06);border:1px solid rgba(14,165,233,.15);border-radius:8px;
+            padding:.5rem .7rem;margin-top:.75rem;font-size:.78rem;color:var(--filter);display:flex;align-items:flex-start;gap:.4rem}
+        .mo-info i{margin-top:2px;flex-shrink:0}
+
+        /* Action sections */
+        .act-section{border-radius:10px;padding:1rem 1.15rem;margin-top:1rem}
+        .act-del{background:rgba(220,38,38,.04);border:1px solid rgba(220,38,38,.15)}
+        .act-ren{background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.15)}
+        .act-title{font-size:.9rem;font-weight:700;margin:0 0 .6rem;display:flex;align-items:center;gap:.45rem}
+        .act-title.del-t{color:var(--danger-h)}
+        .act-title.ren-t{color:var(--rename-h)}
+        .act-row{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+        .act-row select{max-width:280px;flex:1;min-width:180px}
+        .act-row input[type=text]{max-width:280px;flex:1;min-width:180px}
+        .act-row .act-cnt{font-size:.82rem;color:var(--muted);white-space:nowrap}
+        .act-cols{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
 
         .tc{position:fixed;top:1rem;right:1rem;z-index:2000;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
         .toast{padding:.55rem 1rem;border-radius:7px;font-size:.82rem;font-weight:500;color:#fff;pointer-events:auto;
@@ -174,16 +213,58 @@
 <div class="wrap">
     <div class="tc" id="tc"></div>
 
-    <!-- Confirm Modal -->
-    <div class="mo" id="mo" role="dialog" aria-modal="true">
+    <!-- Single Channel Delete Modal -->
+    <div class="mo" id="moCh" role="dialog" aria-modal="true">
         <div class="mo-box">
             <h3><i class="fa-solid fa-triangle-exclamation" style="color:var(--danger);margin-right:.25rem"></i>Delete Channel</h3>
-            <p>You are about to remove:</p>
-            <div class="mo-name" id="moName"></div>
+            <p>You are about to remove this channel:</p>
+            <div class="mo-name" id="moChName"></div>
             <p style="font-size:.78rem;color:var(--muted)">This cannot be undone.</p>
             <div class="mo-acts">
-                <button class="btn btn-o" onclick="hideMo()">Cancel</button>
-                <button class="btn btn-d" onclick="doDel()">Delete</button>
+                <button class="btn btn-o" onclick="hideMoCh()">Cancel</button>
+                <button class="btn btn-d" onclick="doDelCh()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Group Delete Modal -->
+    <div class="mo" id="moGrp" role="dialog" aria-modal="true">
+        <div class="mo-box">
+            <h3><i class="fa-solid fa-layer-group" style="color:var(--danger);margin-right:.25rem"></i>Delete Entire Category</h3>
+            <p>You are about to permanently delete all channels in:</p>
+            <div class="mo-group" id="moGrpName"></div>
+            <span class="mo-count" id="moGrpCount">0</span>
+            <span class="mo-count-label">channels will be removed</span>
+            <div class="mo-warn">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>This will permanently remove every channel matching this group-title from your playlist.</span>
+            </div>
+            <div class="mo-acts">
+                <button class="btn btn-o" onclick="hideMoGrp()">Cancel</button>
+                <button class="btn btn-d" onclick="doDelGrp()"><i class="fa-solid fa-trash"></i>Delete All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Group Rename Modal -->
+    <div class="mo" id="moRen" role="dialog" aria-modal="true">
+        <div class="mo-box">
+            <h3><i class="fa-solid fa-pen" style="color:var(--rename);margin-right:.25rem"></i>Rename Category</h3>
+            <p>This will change the group-title for all matching channels:</p>
+            <div class="mo-arrow">
+                <div class="old-name" id="moRenOld"></div>
+                <i class="fa-solid fa-arrow-right arrow-icon"></i>
+                <div class="new-name" id="moRenNew"></div>
+            </div>
+            <span class="mo-count" id="moRenCount" style="color:var(--rename)">0</span>
+            <span class="mo-count-label">channels will be updated</span>
+            <div class="mo-info">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Only the group-title attribute will change. All other attributes and channel data remain untouched.</span>
+            </div>
+            <div class="mo-acts">
+                <button class="btn btn-o" onclick="hideMoRen()">Cancel</button>
+                <button class="btn btn-rn" onclick="doRenGrp()"><i class="fa-solid fa-check"></i>Rename</button>
             </div>
         </div>
     </div>
@@ -235,6 +316,14 @@
                 <input type="text" class="ipt" id="sI" placeholder="Search channels..." style="padding-left:2rem" oninput="onFilterChange()">
             </div>
             <select class="ipt" id="gF" onchange="onFilterChange()" style="max-width:200px"><option value="">All Groups</option></select>
+            <!-- Quick action buttons when group is filtered -->
+            <button class="btn btn-rn-o btn-sm" id="renGrpBtn" onclick="onRenGrpFromFilter()" style="display:none" title="Rename this category">
+                <i class="fa-solid fa-pen"></i>Rename
+            </button>
+            <button class="btn btn-dg btn-sm" id="delGrpBtn" onclick="onDelGrpFromFilter()" style="display:none" title="Delete all channels in this category">
+                <i class="fa-solid fa-trash"></i>Delete
+            </button>
+            <div class="toolbar-sep" id="tbSep" style="display:none"></div>
             <button class="btn btn-f btn-sm" id="clearFB" onclick="clearF()" style="display:none"><i class="fa-solid fa-xmark"></i>Clear Filter</button>
         </div>
     </div>
@@ -247,6 +336,45 @@
             <p class="sub">Upload a file, paste a URL, or type M3U content directly above</p>
         </div>
         <div class="grid" id="grid" style="display:none"></div>
+    </section>
+
+    <!-- Bulk Actions Section -->
+    <section class="sec" id="actSec" style="display:none">
+        <!-- Rename Category -->
+        <div class="act-section act-ren">
+            <div class="act-title ren-t"><i class="fa-solid fa-pen"></i>Rename Category</div>
+            <p style="font-size:.85rem;color:var(--text-s);margin:0 0 .75rem;line-height:1.45">
+                Change the group-title for all channels in a category at once.
+            </p>
+            <div class="act-cols">
+                <div class="act-row" style="flex:1;min-width:160px">
+                    <select class="ipt" id="renSelect"><option value="">Select category...</option></select>
+                </div>
+                <i class="fa-solid fa-arrow-right" style="color:var(--muted);flex-shrink:0"></i>
+                <div class="act-row" style="flex:1;min-width:160px">
+                    <input type="text" class="ipt" id="renInput" placeholder="New category name...">
+                </div>
+                <span id="renCount" class="act-cnt"></span>
+                <button class="btn btn-rn btn-sm" id="renBtn" onclick="onRenGrpFromSection()" disabled>
+                    <i class="fa-solid fa-check"></i>Rename
+                </button>
+            </div>
+        </div>
+
+        <!-- Delete Category -->
+        <div class="act-section act-del">
+            <div class="act-title del-t"><i class="fa-solid fa-layer-group"></i>Delete Entire Category</div>
+            <p style="font-size:.85rem;color:var(--text-s);margin:0 0 .75rem;line-height:1.45">
+                Select a group-title to permanently remove all matching channels from the playlist.
+            </p>
+            <div class="act-row">
+                <select class="ipt" id="dgSelect"><option value="">Select a category...</option></select>
+                <span id="dgCount" class="act-cnt"></span>
+                <button class="btn btn-d btn-sm" id="dgBtn" onclick="onDelGrpFromSection()" disabled>
+                    <i class="fa-solid fa-trash"></i>Delete All
+                </button>
+            </div>
+        </div>
     </section>
 
     <!-- Add Channel -->
@@ -293,7 +421,10 @@
 /* ===== State ===== */
 let chs = [];
 let hdr = '#EXTM3U';
-let delIdx = -1;
+let delChIdx = -1;
+let delGrpName = '';
+let renGrpOld = '';
+let renGrpNew = '';
 let taTimer = null;
 let syncing = false;
 
@@ -343,8 +474,6 @@ function buildFrom(list) {
     return o.trimEnd();
 }
 
-function buildFull() { return buildFrom(chs); }
-
 /* ===== Filter State ===== */
 function isFiltered() {
     return document.getElementById('gF').value !== '' || document.getElementById('sI').value.trim() !== '';
@@ -370,6 +499,10 @@ function getFilteredWithIdx() {
     });
 }
 
+function countInGroup(gn) {
+    return chs.filter(c => c.attrs['group-title'] === gn).length;
+}
+
 /* ===== Sync ===== */
 function syncToTa() {
     syncing = true;
@@ -390,13 +523,11 @@ function onTaInput() {
     setSync('ed');
     clearTimeout(taTimer);
     taTimer = setTimeout(() => {
-        /* When user edits textarea manually, treat it as full playlist and clear filters */
         const t = document.getElementById('srcTa').value;
         chs = parse(t);
-        /* Clear filters since textarea now represents full playlist */
         document.getElementById('sI').value = '';
         document.getElementById('gF').value = '';
-        renderCards(); updStats(); updMeta(); setSync('ok'); updFilterUI();
+        renderCards(); updStats(); updMeta(); setSync('ok'); updFilterUI(); updActSec();
     }, 450);
 }
 
@@ -410,10 +541,7 @@ function setSync(s) {
     const el = document.getElementById('syncB');
     if (s === 'ok') { el.textContent = 'Synced'; el.className = 'sync-b ok'; }
     else { el.textContent = 'Editing...'; el.className = 'sync-b ed'; }
-    /* Filtered badge */
-    const fb = document.getElementById('fiB');
-    if (isFiltered()) { fb.style.display = ''; }
-    else { fb.style.display = 'none'; }
+    document.getElementById('fiB').style.display = isFiltered() ? '' : 'none';
 }
 
 function updMeta() {
@@ -426,14 +554,14 @@ function updMeta() {
     if (fl) {
         const gv = document.getElementById('gF').value;
         const sv = document.getElementById('sI').value.trim();
-        if (gv) html += `<span class="filter-pill"><i class="fa-solid fa-layer-group"></i>${escH(gv)}<button onclick="document.getElementById('gF').value='';onFilterChange()" title="Clear group filter"><i class="fa-solid fa-xmark"></i></button></span>`;
-        if (sv) html += `<span class="filter-pill"><i class="fa-solid fa-magnifying-glass"></i>"${escH(sv)}"<button onclick="document.getElementById('sI').value='';onFilterChange()" title="Clear search"><i class="fa-solid fa-xmark"></i></button></span>`;
+        if (gv) html += `<span class="filter-pill"><i class="fa-solid fa-layer-group"></i>${escH(gv)}<button onclick="document.getElementById('gF').value='';onFilterChange()" title="Clear"><i class="fa-solid fa-xmark"></i></button></span>`;
+        if (sv) html += `<span class="filter-pill"><i class="fa-solid fa-magnifying-glass"></i>"${escH(sv)}"<button onclick="document.getElementById('sI').value='';onFilterChange()" title="Clear"><i class="fa-solid fa-xmark"></i></button></span>`;
         html += `<span style="color:var(--filter);font-weight:600"><i class="fa-solid fa-info-circle" style="margin-right:.2rem"></i>Output shows only filtered channels</span>`;
     }
     document.getElementById('srcMeta').innerHTML = html;
 }
 
-/* ===== Filter Change Handler ===== */
+/* ===== Filter Change ===== */
 function onFilterChange() {
     updFilterUI();
     renderCards();
@@ -445,11 +573,94 @@ function updFilterUI() {
     const fl = isFiltered();
     const sec = document.getElementById('srcSec');
     const btn = document.getElementById('clearFB');
-    if (fl) { sec.classList.add('filtered'); btn.style.display = ''; }
-    else { sec.classList.remove('filtered'); btn.style.display = 'none'; }
-    setSync(isFiltered() ? 'ok' : 'ok');
+    const sep = document.getElementById('tbSep');
+    const dgBtn = document.getElementById('delGrpBtn');
+    const rnBtn = document.getElementById('renGrpBtn');
+    const gv = document.getElementById('gF').value;
+
+    if (fl) { sec.classList.add('filtered'); btn.style.display = ''; sep.style.display = ''; }
+    else { sec.classList.remove('filtered'); btn.style.display = 'none'; sep.style.display = 'none'; }
+
+    dgBtn.style.display = gv ? '' : 'none';
+    rnBtn.style.display = gv ? '' : 'none';
+
+    setSync('ok');
     updMeta();
 }
+
+/* ===== Bulk Actions Section ===== */
+function updActSec() {
+    const sec = document.getElementById('actSec');
+    if (!chs.length) { sec.style.display = 'none'; return; }
+    sec.style.display = '';
+
+    const gs = groups();
+
+    /* Rename dropdown */
+    const renSel = document.getElementById('renSelect');
+    const renCv = renSel.value;
+    renSel.innerHTML = '<option value="">Select category...</option>';
+    gs.forEach(g => {
+        const c = countInGroup(g);
+        const o = document.createElement('option');
+        o.value = g; o.textContent = `${g} (${c})`;
+        renSel.appendChild(o);
+    });
+    renSel.value = renCv;
+
+    /* Delete dropdown */
+    const dgSel = document.getElementById('dgSelect');
+    const dgCv = dgSel.value;
+    dgSel.innerHTML = '<option value="">Select a category...</option>';
+    gs.forEach(g => {
+        const c = countInGroup(g);
+        const o = document.createElement('option');
+        o.value = g; o.textContent = `${g} (${c})`;
+        dgSel.appendChild(o);
+    });
+    dgSel.value = dgCv;
+
+    updRenCount();
+    updDGCount();
+}
+
+function updRenCount() {
+    const v = document.getElementById('renSelect').value;
+    const nv = document.getElementById('renInput').value.trim();
+    const cnt = document.getElementById('renCount');
+    const btn = document.getElementById('renBtn');
+    if (v && nv) {
+        const c = countInGroup(v);
+        cnt.innerHTML = `<strong style="color:var(--rename)">${c}</strong> channel${c !== 1 ? 's' : ''}`;
+        btn.disabled = false;
+    } else {
+        cnt.textContent = '';
+        btn.disabled = true;
+    }
+}
+
+function updDGCount() {
+    const v = document.getElementById('dgSelect').value;
+    const cnt = document.getElementById('dgCount');
+    const btn = document.getElementById('dgBtn');
+    if (v) {
+        const c = countInGroup(v);
+        cnt.innerHTML = `<strong style="color:var(--danger)">${c}</strong> channel${c !== 1 ? 's' : ''}`;
+        btn.disabled = false;
+    } else {
+        cnt.textContent = '';
+        btn.disabled = true;
+    }
+}
+
+/* Listen for changes on rename inputs */
+document.addEventListener('change', function(e) {
+    if (e.target.id === 'renSelect') { updRenCount(); }
+    if (e.target.id === 'dgSelect') { updDGCount(); }
+});
+document.addEventListener('input', function(e) {
+    if (e.target.id === 'renInput') { updRenCount(); }
+});
 
 /* ===== Groups ===== */
 function groups() {
@@ -479,7 +690,12 @@ function updStats() {
     const sel = document.getElementById('gF');
     const cv = sel.value;
     sel.innerHTML = '<option value="">All Groups</option>';
-    gs.forEach(g => { const o = document.createElement('option'); o.value = g; o.textContent = g; sel.appendChild(o); });
+    gs.forEach(g => {
+        const c = countInGroup(g);
+        const o = document.createElement('option');
+        o.value = g; o.textContent = `${g} (${c})`;
+        sel.appendChild(o);
+    });
     sel.value = cv;
     document.getElementById('posN').max = chs.length + 1;
 }
@@ -542,7 +758,7 @@ function renderCards() {
         }
 
         return `<div class="ccard" data-idx="${i}" style="animation-delay:${Math.min(fi*.025,.4)}s">
-            <div class="cimg">${imgH}<button class="c-x" onclick="event.stopPropagation();showMo(${i})" aria-label="Delete" title="Delete channel"><i class="fa-solid fa-xmark"></i></button></div>
+            <div class="cimg">${imgH}<button class="c-x" onclick="event.stopPropagation();showMoCh(${i})" aria-label="Delete" title="Delete channel"><i class="fa-solid fa-xmark"></i></button></div>
             <div class="cbody" onclick="togDet(${i})">
                 <input class="ei ei-name" value="${escA(c.name)}" oninput="onNm(${i},this.value)" onclick="event.stopPropagation()" title="Edit channel name">
                 <div style="margin-top:.3rem">
@@ -569,248 +785,319 @@ function onNm(i, v) {
     if (!chs[i].logo) { const ph = document.querySelector(`.ccard[data-idx="${i}"] .cimg-ph`); if (ph) ph.textContent = v ? v.charAt(0).toUpperCase() : '?'; }
     syncToTa();
 }
-
 function onGrp(i, v) {
     chs[i].attrs['group-title'] = v;
     const inp = document.getElementById('gb-'+i);
-    if (inp) { if (v) { inp.style.background = gColor(v)+'10'; inp.style.color = gColor(v); inp.style.fontWeight = '500'; } else { inp.style.background = ''; inp.style.color = ''; inp.style.fontWeight = ''; } }
-    syncToTa();
+    if (inp) { if (v) { inp.style.background=gColor(v)+'10'; inp.style.color=gColor(v); inp.style.fontWeight='500'; } else { inp.style.background=''; inp.style.color=''; inp.style.fontWeight=''; } }
+    syncToTa(); updActSec();
 }
-
 function onAV(i, el) {
-    const k = el.dataset.ok;
-    chs[i].attrs[k] = el.value;
-    if (k === 'tvg-logo') { chs[i].logo = el.value; updImg(i); }
+    const k = el.dataset.ok; chs[i].attrs[k] = el.value;
+    if (k==='tvg-logo') { chs[i].logo=el.value; updImg(i); }
     syncToTa();
 }
-
 function onAK(i, el) {
-    const ok = el.dataset.ok;
-    const nk = el.value.trim();
-    if (!nk) { el.value = ok; return; }
-    if (nk !== ok && chs[i].attrs.hasOwnProperty(nk)) { toast('Key already exists','er'); el.value = ok; return; }
-    if (nk === ok) return;
-    const v = chs[i].attrs[ok];
-    delete chs[i].attrs[ok];
-    chs[i].attrs[nk] = v;
-    if (ok === 'tvg-logo') chs[i].logo = '';
-    if (nk === 'tvg-logo') chs[i].logo = v;
-    el.dataset.ok = nk;
-    const row = el.closest('.arow');
-    if (row) { const vi = row.querySelector('.av'); if (vi) vi.dataset.ok = nk; const rb = row.querySelector('.ar-btn.rm'); if (rb) rb.dataset.ok = nk; }
+    const ok=el.dataset.ok, nk=el.value.trim();
+    if (!nk) { el.value=ok; return; }
+    if (nk!==ok && chs[i].attrs.hasOwnProperty(nk)) { toast('Key already exists','er'); el.value=ok; return; }
+    if (nk===ok) return;
+    const v=chs[i].attrs[ok]; delete chs[i].attrs[ok]; chs[i].attrs[nk]=v;
+    if (ok==='tvg-logo') chs[i].logo=''; if (nk==='tvg-logo') chs[i].logo=v;
+    el.dataset.ok=nk;
+    const row=el.closest('.arow');
+    if (row) { const vi=row.querySelector('.av'); if(vi) vi.dataset.ok=nk; const rb=row.querySelector('.ar-btn.rm'); if(rb) rb.dataset.ok=nk; }
     syncToTa();
 }
-
 function onRA(i, k) {
     delete chs[i].attrs[k];
-    if (k === 'tvg-logo') { chs[i].logo = ''; updImg(i); }
+    if (k==='tvg-logo') { chs[i].logo=''; updImg(i); }
     syncToTa(); reDet(i);
 }
-
 function onAA(i, btn) {
-    const row = btn.closest('.arow');
-    const ki = row.querySelector('.nak');
-    const vi = row.querySelector('.nav');
-    const k = ki.value.trim(), v = vi.value.trim();
+    const row=btn.closest('.arow');
+    const ki=row.querySelector('.nak'), vi=row.querySelector('.nav');
+    const k=ki.value.trim(), v=vi.value.trim();
     if (!k) { toast('Key required','er'); ki.focus(); return; }
     if (chs[i].attrs.hasOwnProperty(k)) { toast('Key exists','er'); ki.focus(); return; }
-    chs[i].attrs[k] = v;
-    if (k === 'tvg-logo') { chs[i].logo = v; updImg(i); }
+    chs[i].attrs[k]=v;
+    if (k==='tvg-logo') { chs[i].logo=v; updImg(i); }
     syncToTa(); reDet(i);
 }
-
-function onDur(i, v) { chs[i].dur = v; syncToTa(); }
-function onUrl(i, v) { chs[i].url = v; syncToTa(); }
-function onEx(i, ei, v) { chs[i].extras[ei] = v; syncToTa(); }
-function onREx(i, ei) { chs[i].extras.splice(ei, 1); syncToTa(); reDet(i); }
+function onDur(i,v) { chs[i].dur=v; syncToTa(); }
+function onUrl(i,v) { chs[i].url=v; syncToTa(); }
+function onEx(i,ei,v) { chs[i].extras[ei]=v; syncToTa(); }
+function onREx(i,ei) { chs[i].extras.splice(ei,1); syncToTa(); reDet(i); }
 
 function updImg(i) {
-    const card = document.querySelector(`.ccard[data-idx="${i}"]`);
+    const card=document.querySelector(`.ccard[data-idx="${i}"]`);
     if (!card) return;
-    const wrap = card.querySelector('.cimg');
-    const xb = wrap.querySelector('.c-x');
-    const ini = chs[i].name ? chs[i].name.charAt(0).toUpperCase() : '?';
-    if (chs[i].logo) {
-        wrap.innerHTML = `<img src="${escH(chs[i].logo)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="cimg-ph" style="display:none">${escH(ini)}</div>`;
-    } else {
-        wrap.innerHTML = `<div class="cimg-ph">${escH(ini)}</div>`;
-    }
+    const wrap=card.querySelector('.cimg'), xb=wrap.querySelector('.c-x');
+    const ini=chs[i].name?chs[i].name.charAt(0).toUpperCase():'?';
+    if (chs[i].logo) wrap.innerHTML=`<img src="${escH(chs[i].logo)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="cimg-ph" style="display:none">${escH(ini)}</div>`;
+    else wrap.innerHTML=`<div class="cimg-ph">${escH(ini)}</div>`;
     wrap.appendChild(xb);
 }
 
 function reDet(i) {
-    const det = document.getElementById('det-'+i);
-    if (!det || !det.classList.contains('open')) return;
-    const c = chs[i];
-    const inn = det.querySelector('.cdet-in');
+    const det=document.getElementById('det-'+i);
+    if (!det||!det.classList.contains('open')) return;
+    const c=chs[i], inn=det.querySelector('.cdet-in');
     if (!inn) return;
-    let h = '<div class="cdet-label">Attributes</div>';
-    Object.entries(c.attrs).forEach(([k,v]) => {
-        h += `<div class="arow">
-            <input class="ei ak" data-ok="${escA(k)}" value="${escA(k)}" onchange="onAK(${i},this)" onclick="event.stopPropagation()" title="Edit key">
-            <span class="aeq">=</span>
-            <input class="ei av" data-ok="${escA(k)}" value="${escA(v)}" oninput="onAV(${i},this)" onclick="event.stopPropagation()" title="Edit value">
-            <button class="ar-btn rm" data-ok="${escA(k)}" onclick="event.stopPropagation();onRA(${i},this.dataset.ok)" title="Remove"><i class="fa-solid fa-xmark"></i></button>
-        </div>`;
+    let h='<div class="cdet-label">Attributes</div>';
+    Object.entries(c.attrs).forEach(([k,v])=>{
+        h+=`<div class="arow"><input class="ei ak" data-ok="${escA(k)}" value="${escA(k)}" onchange="onAK(${i},this)" onclick="event.stopPropagation()" title="Edit key"><span class="aeq">=</span><input class="ei av" data-ok="${escA(k)}" value="${escA(v)}" oninput="onAV(${i},this)" onclick="event.stopPropagation()" title="Edit value"><button class="ar-btn rm" data-ok="${escA(k)}" onclick="event.stopPropagation();onRA(${i},this.dataset.ok)" title="Remove"><i class="fa-solid fa-xmark"></i></button></div>`;
     });
-    h += `<div class="arow" style="opacity:.7">
-        <input class="ei ak nak" placeholder="new key" onclick="event.stopPropagation()">
-        <span class="aeq">=</span>
-        <input class="ei av nav" placeholder="new value" onclick="event.stopPropagation()">
-        <button class="ar-btn ad" onclick="event.stopPropagation();onAA(${i},this)" title="Add attribute"><i class="fa-solid fa-plus"></i></button>
-    </div>`;
-    h += `<div class="cdet-label" style="margin-top:.5rem">Duration</div>
-        <div class="arow"><input class="ei" style="flex:1" value="${escA(c.dur)}" oninput="onDur(${i},this.value)" onclick="event.stopPropagation()"></div>`;
-    h += `<div class="cdet-label">Stream URL</div>
-        <div class="arow cdet-url"><input class="ei" style="flex:1;font-size:.7rem" value="${escA(c.url)}" oninput="onUrl(${i},this.value)" onclick="event.stopPropagation()"></div>`;
-    if (c.extras && c.extras.length) {
-        h += `<div class="cdet-label" style="margin-top:.5rem">Extra Directives</div>`;
-        c.extras.forEach((el, ei) => {
-            h += `<div class="arow"><input class="ei" style="flex:1;font-size:.7rem;color:var(--text-s)" value="${escA(el)}" oninput="onEx(${i},${ei},this.value)" onclick="event.stopPropagation()">
-                <button class="ar-btn rm" onclick="event.stopPropagation();onREx(${i},${ei})" title="Remove"><i class="fa-solid fa-xmark"></i></button></div>`;
+    h+=`<div class="arow" style="opacity:.7"><input class="ei ak nak" placeholder="new key" onclick="event.stopPropagation()"><span class="aeq">=</span><input class="ei av nav" placeholder="new value" onclick="event.stopPropagation()"><button class="ar-btn ad" onclick="event.stopPropagation();onAA(${i},this)" title="Add attribute"><i class="fa-solid fa-plus"></i></button></div>`;
+    h+=`<div class="cdet-label" style="margin-top:.5rem">Duration</div><div class="arow"><input class="ei" style="flex:1" value="${escA(c.dur)}" oninput="onDur(${i},this.value)" onclick="event.stopPropagation()"></div>`;
+    h+=`<div class="cdet-label">Stream URL</div><div class="arow cdet-url"><input class="ei" style="flex:1;font-size:.7rem" value="${escA(c.url)}" oninput="onUrl(${i},this.value)" onclick="event.stopPropagation()"></div>`;
+    if (c.extras&&c.extras.length) {
+        h+=`<div class="cdet-label" style="margin-top:.5rem">Extra Directives</div>`;
+        c.extras.forEach((el,ei)=>{
+            h+=`<div class="arow"><input class="ei" style="flex:1;font-size:.7rem;color:var(--text-s)" value="${escA(el)}" oninput="onEx(${i},${ei},this.value)" onclick="event.stopPropagation()"><button class="ar-btn rm" onclick="event.stopPropagation();onREx(${i},${ei})" title="Remove"><i class="fa-solid fa-xmark"></i></button></div>`;
         });
     }
-    inn.innerHTML = h;
+    inn.innerHTML=h;
 }
 
-/* ===== Delete ===== */
-function showMo(i) { delIdx = i; document.getElementById('moName').textContent = chs[i].name; document.getElementById('mo').classList.add('on'); }
-function hideMo() { document.getElementById('mo').classList.remove('on'); delIdx = -1; }
-function doDel() {
-    if (delIdx < 0 || delIdx >= chs.length) return;
-    const idx = delIdx; hideMo();
-    const card = document.querySelector(`.ccard[data-idx="${idx}"]`);
+/* ===== Delete Single Channel ===== */
+function showMoCh(i) { delChIdx=i; document.getElementById('moChName').textContent=chs[i].name; document.getElementById('moCh').classList.add('on'); }
+function hideMoCh() { document.getElementById('moCh').classList.remove('on'); delChIdx=-1; }
+function doDelCh() {
+    if (delChIdx<0||delChIdx>=chs.length) return;
+    const idx=delChIdx; hideMoCh();
+    const card=document.querySelector(`.ccard[data-idx="${idx}"]`);
     if (card) {
         card.classList.add('del');
-        setTimeout(() => { chs.splice(idx, 1); syncToTa(); renderCards(); updStats(); updFilterUI(); toast('Channel removed','ok'); }, 280);
-    } else { chs.splice(idx, 1); syncToTa(); renderCards(); updStats(); updFilterUI(); toast('Channel removed','ok'); }
+        setTimeout(()=>{ chs.splice(idx,1); syncToTa(); renderCards(); updStats(); updFilterUI(); updActSec(); toast('Channel removed','ok'); },280);
+    } else { chs.splice(idx,1); syncToTa(); renderCards(); updStats(); updFilterUI(); updActSec(); toast('Channel removed','ok'); }
 }
-document.getElementById('mo').addEventListener('click', function(e) { if (e.target === this) hideMo(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') hideMo(); });
+
+/* ===== Delete Entire Group ===== */
+function onDelGrpFromFilter() {
+    const gv = document.getElementById('gF').value;
+    if (!gv) return;
+    showMoGrp(gv);
+}
+
+function onDelGrpFromSection() {
+    const gv = document.getElementById('dgSelect').value;
+    if (!gv) return;
+    showMoGrp(gv);
+}
+
+function showMoGrp(gn) {
+    delGrpName = gn;
+    document.getElementById('moGrpName').textContent = gn;
+    document.getElementById('moGrpCount').textContent = countInGroup(gn);
+    document.getElementById('moGrp').classList.add('on');
+}
+
+function hideMoGrp() {
+    document.getElementById('moGrp').classList.remove('on');
+    delGrpName = '';
+}
+
+function doDelGrp() {
+    if (!delGrpName) return;
+    const gn = delGrpName;
+    hideMoGrp();
+    const before = chs.length;
+    chs = chs.filter(c => c.attrs['group-title'] !== gn);
+    const removed = before - chs.length;
+    if (document.getElementById('gF').value === gn) document.getElementById('gF').value = '';
+    if (document.getElementById('dgSelect').value === gn) document.getElementById('dgSelect').value = '';
+    syncToTa(); renderCards(); updStats(); updFilterUI(); updActSec();
+    toast(`Deleted "${gn}" — ${removed} channels removed`, 'ok');
+}
+
+/* ===== Rename Entire Group ===== */
+function onRenGrpFromFilter() {
+    const gv = document.getElementById('gF').value;
+    if (!gv) return;
+    /* Pre-fill the section inputs too for consistency */
+    document.getElementById('renSelect').value = gv;
+    document.getElementById('renInput').value = '';
+    document.getElementById('renInput').focus();
+    updRenCount();
+}
+
+function onRenGrpFromSection() {
+    const oldName = document.getElementById('renSelect').value;
+    const newName = document.getElementById('renInput').value.trim();
+    if (!oldName || !newName) return;
+    if (oldName === newName) { toast('New name is the same as current', 'er'); return; }
+    showMoRen(oldName, newName);
+}
+
+function showMoRen(oldN, newN) {
+    renGrpOld = oldN;
+    renGrpNew = newN;
+    document.getElementById('moRenOld').textContent = oldN;
+    document.getElementById('moRenNew').textContent = newN;
+    document.getElementById('moRenCount').textContent = countInGroup(oldN);
+    document.getElementById('moRen').classList.add('on');
+}
+
+function hideMoRen() {
+    document.getElementById('moRen').classList.remove('on');
+    renGrpOld = '';
+    renGrpNew = '';
+}
+
+function doRenGrp() {
+    if (!renGrpOld || !renGrpNew) return;
+    const oldN = renGrpOld;
+    const newN = renGrpNew;
+    hideMoRen();
+
+    let updated = 0;
+    chs.forEach(c => {
+        if (c.attrs['group-title'] === oldN) {
+            c.attrs['group-title'] = newN;
+            c.logo = c.attrs['tvg-logo'] || '';
+            updated++;
+        }
+    });
+
+    /* Update filter if it was showing the old name */
+    if (document.getElementById('gF').value === oldN) {
+        document.getElementById('gF').value = newN;
+    }
+
+    /* Update section dropdowns */
+    document.getElementById('renSelect').value = '';
+    document.getElementById('renInput').value = '';
+
+    syncToTa(); renderCards(); updStats(); updFilterUI(); updActSec();
+    toast(`Renamed "${oldN}" → "${newN}" — ${updated} channels updated`, 'ok');
+}
+
+/* ===== Modal close handlers ===== */
+document.getElementById('moCh').addEventListener('click', function(e) { if (e.target===this) hideMoCh(); });
+document.getElementById('moGrp').addEventListener('click', function(e) { if (e.target===this) hideMoGrp(); });
+document.getElementById('moRen').addEventListener('click', function(e) { if (e.target===this) hideMoRen(); });
+document.addEventListener('keydown', e => { if (e.key==='Escape') { hideMoCh(); hideMoGrp(); hideMoRen(); } });
 
 /* ===== Load ===== */
 function onFile(e) {
-    const f = e.target.files[0]; if (!f) return;
-    document.getElementById('fn').textContent = f.name;
-    const r = new FileReader();
-    r.onload = ev => loadSrc(ev.target.result);
-    r.readAsText(f, 'utf-8');
+    const f=e.target.files[0]; if (!f) return;
+    document.getElementById('fn').textContent=f.name;
+    const r=new FileReader();
+    r.onload=ev=>loadSrc(ev.target.result);
+    r.readAsText(f,'utf-8');
 }
 
 function onUrl() {
-    const u = document.getElementById('urlI').value.trim();
+    const u=document.getElementById('urlI').value.trim();
     if (!u) { toast('Enter a URL','er'); return; }
-    const b = document.getElementById('urlB');
-    b.disabled = true; b.innerHTML = '<span class="spinner"></span>Loading';
-    fetch(u).then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
-        .then(t => { loadSrc(t); toast('Loaded from URL','ok'); })
-        .catch(e => toast('Failed: '+e.message,'er'))
-        .finally(() => { b.disabled = false; b.innerHTML = '<i class="fa-solid fa-link"></i>Load'; });
+    const b=document.getElementById('urlB');
+    b.disabled=true; b.innerHTML='<span class="spinner"></span>Loading';
+    fetch(u).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+        .then(t=>{ loadSrc(t); toast('Loaded from URL','ok'); })
+        .catch(e=>toast('Failed: '+e.message,'er'))
+        .finally(()=>{ b.disabled=false; b.innerHTML='<i class="fa-solid fa-link"></i>Load'; });
 }
 
 function loadSrc(text) {
-    /* Clear any active filters first */
-    document.getElementById('sI').value = '';
-    document.getElementById('gF').value = '';
-    document.getElementById('srcTa').value = text;
-    chs = parse(text);
+    document.getElementById('sI').value='';
+    document.getElementById('gF').value='';
+    document.getElementById('srcTa').value=text;
+    chs=parse(text);
     updFilterUI();
-    renderCards(); updStats(); syncToTa();
+    renderCards(); updStats(); syncToTa(); updActSec();
     toast(`Loaded ${chs.length} channels`,'ok');
-    document.getElementById('srcSec').scrollIntoView({ behavior:'smooth', block:'start' });
+    document.getElementById('srcSec').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 /* ===== Add Channel ===== */
 function togPos() {
-    const at = document.querySelector('input[name="pt"][value="at"]').checked;
-    const n = document.getElementById('posN');
-    n.style.display = at ? '' : 'none'; n.disabled = !at;
+    const at=document.querySelector('input[name="pt"][value="at"]').checked;
+    const n=document.getElementById('posN');
+    n.style.display=at?'':'none'; n.disabled=!at;
 }
 
 function addCARow() {
-    const r = document.createElement('div'); r.className = 'carow';
-    r.innerHTML = `<div class="fg" style="flex:1"><input type="text" class="ipt ca-k" placeholder="attribute-name"></div>
+    const r=document.createElement('div'); r.className='carow';
+    r.innerHTML=`<div class="fg" style="flex:1"><input type="text" class="ipt ca-k" placeholder="attribute-name"></div>
         <div class="fg" style="flex:1.5"><input type="text" class="ipt ca-v" placeholder="value"></div>
         <button type="button" class="btn btn-o btn-sm" onclick="this.parentElement.remove()" style="padding:.3rem .5rem"><i class="fa-solid fa-xmark"></i></button>`;
     document.getElementById('caBox').appendChild(r);
 }
 
 function onAdd(e) {
-    e.preventDefault();
-    flushTa();
-    const nm = document.getElementById('aN').value.trim();
-    const url = document.getElementById('aU').value.trim();
-    if (!nm || !url) { toast('Name and URL required','er'); return; }
-    const attrs = {};
-    [['aTi','tvg-id'],['aTn','tvg-name'],['aTl','tvg-logo'],['aG','group-title']].forEach(([id,k]) => {
-        const v = document.getElementById(id).value.trim(); if (v) attrs[k] = v;
+    e.preventDefault(); flushTa();
+    const nm=document.getElementById('aN').value.trim();
+    const url=document.getElementById('aU').value.trim();
+    if (!nm||!url) { toast('Name and URL required','er'); return; }
+    const attrs={};
+    [['aTi','tvg-id'],['aTn','tvg-name'],['aTl','tvg-logo'],['aG','group-title']].forEach(([id,k])=>{
+        const v=document.getElementById(id).value.trim(); if(v) attrs[k]=v;
     });
-    document.querySelectorAll('#caBox .carow').forEach(r => {
-        const k = r.querySelector('.ca-k').value.trim();
-        const v = r.querySelector('.ca-v').value.trim();
-        if (k) attrs[k] = v;
+    document.querySelectorAll('#caBox .carow').forEach(r=>{
+        const k=r.querySelector('.ca-k').value.trim();
+        const v=r.querySelector('.ca-v').value.trim();
+        if(k) attrs[k]=v;
     });
-    const dur = document.getElementById('aD').value.trim() || '-1';
-    const nc = { dur, attrs, name:nm, logo:attrs['tvg-logo']||'', url, extras:[] };
-    const pt = document.querySelector('input[name="pt"]:checked').value;
-    if (pt === 'at') {
-        let p = parseInt(document.getElementById('posN').value, 10);
-        if (isNaN(p) || p < 1) p = 1;
-        if (p > chs.length) p = chs.length;
-        chs.splice(p - 1, 0, nc);
+    const dur=document.getElementById('aD').value.trim()||'-1';
+    const nc={dur,attrs,name:nm,logo:attrs['tvg-logo']||'',url,extras:[]};
+    const pt=document.querySelector('input[name="pt"]:checked').value;
+    if (pt==='at') {
+        let p=parseInt(document.getElementById('posN').value,10);
+        if(isNaN(p)||p<1) p=1; if(p>chs.length) p=chs.length;
+        chs.splice(p-1,0,nc);
     } else { chs.push(nc); }
-    syncToTa(); renderCards(); updStats(); updFilterUI();
+    syncToTa(); renderCards(); updStats(); updFilterUI(); updActSec();
     toast(`"${nm}" added`,'ok');
     document.getElementById('addF').reset();
-    document.getElementById('aD').value = '-1';
-    document.getElementById('caBox').innerHTML = '';
-    document.querySelector('input[name="pt"][value="end"]').checked = true;
+    document.getElementById('aD').value='-1';
+    document.getElementById('caBox').innerHTML='';
+    document.querySelector('input[name="pt"][value="end"]').checked=true;
     togPos();
 }
 
 /* ===== Output Actions ===== */
 function doCopy() {
-    const t = document.getElementById('srcTa').value;
-    if (!t) { toast('Nothing to copy','er'); return; }
-    navigator.clipboard.writeText(t).then(() => toast('Copied','ok')).catch(() => {
-        const ta = document.getElementById('srcTa'); ta.select(); document.execCommand('copy'); toast('Copied','ok');
+    const t=document.getElementById('srcTa').value;
+    if(!t) { toast('Nothing to copy','er'); return; }
+    navigator.clipboard.writeText(t).then(()=>toast('Copied','ok')).catch(()=>{
+        const ta=document.getElementById('srcTa'); ta.select(); document.execCommand('copy'); toast('Copied','ok');
     });
 }
 
 function doDl() {
-    const t = document.getElementById('srcTa').value;
-    if (!t) { toast('Nothing to download','er'); return; }
-    const fn = isFiltered() ? 'playlist_filtered.m3u' : 'playlist_modified.m3u';
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([t], { type:'audio/mpegurl' }));
-    a.download = fn;
+    const t=document.getElementById('srcTa').value;
+    if(!t) { toast('Nothing to download','er'); return; }
+    const fn=isFiltered()?'playlist_filtered.m3u':'playlist_modified.m3u';
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([t],{type:'audio/mpegurl'}));
+    a.download=fn;
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     URL.revokeObjectURL(a.href); toast('Download started','ok');
 }
 
 /* ===== Search / Filter ===== */
 function clearF() {
-    document.getElementById('sI').value = '';
-    document.getElementById('gF').value = '';
+    document.getElementById('sI').value='';
+    document.getElementById('gF').value='';
     onFilterChange();
     toast('Filters cleared','in');
 }
 
 /* ===== Toast ===== */
 function toast(msg, type) {
-    const c = document.getElementById('tc');
-    const t = document.createElement('div');
-    const cls = { ok:'t-ok', er:'t-er', in:'t-in' };
-    const ico = { ok:'fa-check', er:'fa-xmark', in:'fa-info' };
-    t.className = `toast ${cls[type]||cls.in}`;
-    t.innerHTML = `<i class="fa-solid ${ico[type]||ico.in}"></i>${escH(msg)}`;
+    const c=document.getElementById('tc');
+    const t=document.createElement('div');
+    const cls={ok:'t-ok',er:'t-er',in:'t-in'};
+    const ico={ok:'fa-check',er:'fa-xmark',in:'fa-info'};
+    t.className=`toast ${cls[type]||cls.in}`;
+    t.innerHTML=`<i class="fa-solid ${ico[type]||ico.in}"></i>${escH(msg)}`;
     c.appendChild(t);
-    requestAnimationFrame(() => t.classList.add('show'));
-    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 2800);
+    requestAnimationFrame(()=>t.classList.add('show'));
+    setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=>t.remove(),300); },3000);
 }
 
 /* ===== Init ===== */
-updStats(); updMeta(); updFilterUI();
+updStats(); updMeta(); updFilterUI(); updActSec();
 </script>
 </body>
 </html>
