@@ -1,7 +1,7 @@
 #EXTM3U
 #EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ef/Star_Jalsha_logo_2023.png" group-title="Indian-Bangla",Star Jalsha HD
 http://103.182.170.32:8888/play/a046
-#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/5f/Zee_Bangla_logo.png" group-title="Indian-Bangla",Zee Bangla HD
+#EXTINF:-1 tvg-logo="https://e7.pngegg.com/pngimages/225/230/png-clipart-zee-bangla-television-channel-zee-tv-zee-entertainment-enterprises-others-television-text.png" group-title="Indian-Bangla",Zee Bangla HD
 http://103.175.242.10:8080/zeebangla/index.m3u8
 #EXTINF:-1 tvg-logo="https://p1.hiclipart.com/preview/532/28/6/cinema-logo-zee-bangla-cinema-zee-cinema-bengali-language-zee-entertainment-enterprises-film-orange-text-png-clipart.jpg" group-title="Indian-Bangla",Zee Bangla Cinema
 http://103.182.170.32:8888/play/a044
