@@ -1,0 +1,800 @@
+[
+  {
+    "name": "06Apr11:30 Udinese x Como",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd7.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr11:30 Udinese x Como",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr12:30 Portsmouth x Oxford United",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr12:30 Portsmouth x Oxford United",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr13:30 Chelsea FC W x Tottenham Hotspur W",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr13:30 Chelsea FC W x Tottenham Hotspur W",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr13:45 Radomiak Radom x Motor Lublin",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr14:00 Lecce x Atalanta",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd7.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr14:00 Lecce x Atalanta",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr15:00 Watford x Charlton Athletic",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr15:00 Ipswich Town x Birmingham City",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr16:30 Pogoń Szczecin x Legia Warszawa",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr17:00 Juventus x Genoa",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd8.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr17:00 Juventus x Genoa",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr17:00 Juventus x Genoa",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr17:00 Birmingham City W x Manchester City\tW",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr17:30 Swansea City x Middlesbrough",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr17:30 Swansea City x Middlesbrough",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv4.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr18:00 Kocaelispor x İstanbul Başakşehir",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd11.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr18:45 Arouca x Estoril",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr19:15 Lechia Gdańsk x Korona Kielce",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr19:45 Napoli x Milan",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr19:45 Napoli x Milan",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd7.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr19:45 Napoli x Milan",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br4.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr19:45 Le Mans x Pau",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd4.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr20:00 Girona x Villarreal",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr20:00 Girona x Villarreal",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr20:00 Girona x Villarreal",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/eleven1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr20:00 Girona x Villarreal",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr20:00 Hull City x Coventry City",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr20:00 Hull City x Coventry City",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv4.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr20:00 Hull City x Coventry City",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br3.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr20:45 Casa Pia x Benfica",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr20:45 Casa Pia x Benfica",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr21:30 Deportivo Pereira x Alianza",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd9.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr23:00 Argentinos Juniors x Banfield",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd8.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr23:00 Universidad Chile x La Serena",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd11.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr00:00 Atlético Cali x Envigado",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd9.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr00:00 NBA: New York Knicks @ Atlanta Hawks",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr00:00 NBA: New York Knicks @ Atlanta Hawks",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br3.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr00:00 NHL: Buffalo Sabres @ Tampa Bay Lightning",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr00:00 Peru U17 x Brazil U17",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr01:00 Goiás x Criciúma",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr01:00 Huachipato x Univ. Concepción",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd11.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "06Apr02:10 Atlético Nacional x Jaguares de Córdoba",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd9.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr10:00 Melbourne City x Central Coast Mariners",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr10:00 Tennis - ATP World Tour 1000: Monte Carlo",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr12:30 Bandırmaspor x Sarıyer",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd11.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr13:50 Thailand x China",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr15:00 Manisa BBSK x Pendikspor",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd11.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr18:00 Vizela x Benfica B",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr18:00 Çorum Belediyespor x Bodrumspor",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd11.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr19:30 Basketball - Euroleague: Barcelona x Panathinaikos",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv3.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Sporting CP x Arsenal",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Sporting CP x Arsenal",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd7.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Sporting CP x Arsenal",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd9.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Sporting CP x Arsenal",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd11.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Sporting CP x Arsenal",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Sporting CP x Arsenal",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br4.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Real Madrid x Bayern München",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Real Madrid x Bayern München",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd3.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Real Madrid x Bayern München",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd4.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Real Madrid x Bayern München",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Real Madrid x Bayern München",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd8.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Real Madrid x Bayern München",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Real Madrid x Bayern München",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/eleven1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Real Madrid x Bayern München",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br3.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr20:00 Real Madrid x Bayern München",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr22:00 Rionegro Águilas x Atlético Bucaramanga",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd9.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr23:00 Barracas Central x Vasco da Gama",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr23:00 Barracas Central x Vasco da Gama",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br3.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr23:00 Independiente Petrolero x Racing Club",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr23:00 Independiente Petrolero x Racing Club",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd8.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr23:00 Independiente Petrolero x Racing Club",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr23:00 Independiente Rivadavia x Bolívar",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr23:00 Deportivo La Guaira x Fluminense",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br4.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr01:00 Nashville SC x América",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr01:00 Nashville SC x América",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd11.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr01:00 NBA: Charlotte Hornets @ Boston Celtics",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr01:00 O'Higgins x Millonarios",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr01:00 Barcelona x Cruzeiro",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr01:00 Barcelona x Cruzeiro",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr01:00 Always Ready x LDU Quito",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr01:30 Barranquilla x Real Santander",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd9.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr01:30 Universidad Católica x Boca Juniors",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr01:30 Universidad Católica x Boca Juniors",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd8.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr01:30 Universidad Católica x Boca Juniors",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv3.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr01:30 Boston River x São Paulo",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr03:00 Deportes Tolima x Universitario",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr03:00 Deportes Tolima x Universitario",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd8.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr03:00 Los Angeles FC x Cruz Azul",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr03:00 Los Angeles FC x Cruz Azul",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd11.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr03:00 Alianza Atlético x Tigre",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "07Apr03:30 NBA: Dallas Mavericks @ LA Clippers",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr11:00 Gamba Osaka x Bangkok United",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr17:45 Sporting Braga x Real Betis",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr17:45 Sporting Braga x Real Betis",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd9.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr18:00 Göztepe x Galatasaray",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr18:00 Göztepe x Galatasaray",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr18:00 Göztepe x Galatasaray",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 PSG x Liverpool",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 PSG x Liverpool",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd4.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 PSG x Liverpool",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd7.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 PSG x Liverpool",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd9.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 PSG x Liverpool",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 PSG x Liverpool",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 PSG x Liverpool",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br4.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 Barcelona x Atlético Madrid",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 Barcelona x Atlético Madrid",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd3.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 Barcelona x Atlético Madrid",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 Barcelona x Atlético Madrid",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 Barcelona x Atlético Madrid",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd8.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 Barcelona x Atlético Madrid",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd11.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 Barcelona x Atlético Madrid",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/eleven1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr20:00 Barcelona x Atlético Madrid",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br3.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr23:00 Deportivo Cuenca x Santos",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr23:00 Deportivo Cuenca x Santos",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd8.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr23:00 Deportivo Cuenca x Santos",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr23:00 Deportivo Cuenca x Santos",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr23:00 Mirassol x Lanús",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br4.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr23:00 Deportivo Recoleta x San Lorenzo",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr01:30 Blooming x River Plate",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr01:30 Blooming x River Plate",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd8.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr01:30 Junior x Palmeiras",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr01:30 Junior x Palmeiras",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br2.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr01:30 Torque x Grêmio",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr01:30 Cusco x Flamengo",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br3.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr02:00 Tigres UANL x Seattle Sounders FC",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd5.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr03:00 Sporting Cristal x Cerro Porteño",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd10.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr03:00 Sporting Cristal x Cerro Porteño",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd8.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr03:00 Academia Puerto Cabello x Atlético Mineiro",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/bra/br6.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr04:00 Toluca x LA Galaxy",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/hd/hd1.php\",\"type\":\"embed\"}"
+  },
+  {
+    "name": "08Apr04:00 Toluca x LA Galaxy",
+    "link": "",
+    "logo": "",
+    "api": "{\"url\":\"\",\"api\":\"https://ww1.sportszonline.click/channels/pt/sporttv1.php\",\"type\":\"embed\"}"
+  }
+]
