@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Streams.center</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #070a12;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: #eef2ff;
+      padding: 1rem 0.8rem;
+    }
+
+    .dashboard {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    /* header — tighter */
+    .hero {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.75rem;
+    }
+
+    .title-section h1 {
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.2px;
+      background: linear-gradient(135deg, #ffffff, #9aafff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .title-section p {
+      font-size: 0.65rem;
+      color: #7e86a8;
+      margin-top: 0.2rem;
+    }
+
+    .stats-badge {
+      background: #0f1320;
+      padding: 0.25rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      border: 1px solid #252c44;
+      color: #b9c3ff;
+    }
+
+    /* controls compact */
+    .control-panel {
+      margin: 0.8rem 0 1rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-wrapper {
+      flex: 2;
+      min-width: 180px;
+      position: relative;
+    }
+
+    .search-wrapper i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      color: #6f7aa8;
+    }
+
+    #searchInput {
+      width: 100%;
+      background: #0c0f18;
+      border: 1px solid #23283e;
+      border-radius: 32px;
+      padding: 0.5rem 0.8rem 0.5rem 2.2rem;
+      font-size: 0.75rem;
+      color: #f0f3fc;
+      outline: none;
+      transition: 0.15s;
+      font-family: 'Inter', monospace;
+    }
+
+    #searchInput:focus {
+      border-color: #6a7eff;
+      box-shadow: 0 0 0 2px rgba(106, 126, 255, 0.2);
+      background: #080b14;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      background: #101424;
+      border: 1px solid #262e4a;
+      padding: 0 1rem;
+      height: 32px;
+      border-radius: 32px;
+      font-weight: 500;
+      font-size: 0.7rem;
+      color: #ccd6ff;
+      cursor: pointer;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: 0.15s;
+    }
+
+    .action-btn:hover {
+      background: #1a2140;
+      border-color: #6a7eff;
+    }
+
+    /* table compact */
+    .table-container {
+      background: #0a0e18;
+      border-radius: 18px;
+      border: 1px solid #181e30;
+      overflow-x: auto;
+      box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.6);
+    }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.7rem;
+      min-width: 900px;
+    }
+
+    .schedule-table th {
+      text-align: left;
+      padding: 0.7rem 0.8rem;
+      background: #060910;
+      font-weight: 600;
+      color: #a7b2e0;
+      border-bottom: 1px solid #1a2038;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+      letter-spacing: 0.3px;
+    }
+
+    .schedule-table td {
+      padding: 0.7rem 0.8rem;
+      border-bottom: 1px solid #12172a;
+      vertical-align: middle;
+    }
+
+    .schedule-table tr:hover td {
+      background: #0f1322;
+    }
+
+    /* team row compact */
+    .team-matchup {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .team-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(6, 10, 22, 0.6);
+      padding: 2px 8px 2px 5px;
+      border-radius: 30px;
+      border: 1px solid #262e48;
+    }
+
+    .team-logo {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      border-radius: 22px;
+      background: #0a0f1c;
+    }
+
+    .vs-badge {
+      font-weight: 700;
+      font-size: 0.6rem;
+      background: #181f36;
+      padding: 2px 6px;
+      border-radius: 16px;
+      color: #aebeff;
+    }
+
+    .match-name-sub {
+      font-size: 0.6rem;
+      color: #7b86b0;
+      margin-left: 2px;
+    }
+
+    .time-primary {
+      background: #0b0f1c;
+      border-radius: 24px;
+      padding: 3px 8px;
+      font-family: monospace;
+      font-size: 0.65rem;
+      font-weight: 500;
+      border: 0.5px solid #2a3150;
+      display: inline-block;
+    }
+
+    .category-badge {
+      background: #131b30;
+      border-radius: 20px;
+      padding: 3px 8px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      display: inline-block;
+      color: #bfcbff;
+    }
+
+    /* sources compact clean */
+    .sources-container {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .source-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0c1020;
+      border-radius: 32px;
+      padding: 3px 6px 3px 12px;
+      border: 1px solid #232a44;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .source-url {
+      font-size: 0.65rem;
+      font-family: 'SF Mono', monospace;
+      color: #b9c3ff;
+      word-break: break-all;
+      flex: 2;
+      min-width: 140px;
+    }
+
+    .lang-badge {
+      background: #1a2140;
+      border-radius: 24px;
+      padding: 2px 8px;
+      font-size: 0.6rem;
+      font-weight: 500;
+      color: #d3deff;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .copy-source-btn {
+      background: #151e38;
+      border: none;
+      border-radius: 30px;
+      padding: 3px 10px;
+      font-size: 0.6rem;
+      font-weight: 500;
+      color: #d2deff;
+      cursor: pointer;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: 0.1s;
+    }
+
+    .copy-source-btn:hover {
+      background: #2a3460;
+      color: white;
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e2548;
+      backdrop-filter: blur(12px);
+      color: #dbe4ff;
+      padding: 5px 16px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      border: 1px solid #6a7eff;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .empty-state, .error-state {
+      text-align: center;
+      padding: 1.8rem;
+      font-size: 0.75rem;
+      color: #7b86b0;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #2e3a60;
+      border-top-color: #8f9eff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin-right: 6px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    footer {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 0.6rem;
+      color: #404768;
+    }
+
+    @media (max-width: 680px) {
+      .team-matchup { gap: 5px; }
+      .source-item { flex-direction: column; align-items: stretch; }
+      .copy-source-btn { align-self: flex-end; }
+      .schedule-table td, .schedule-table th { padding: 0.6rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="dashboard">
+  <div class="hero">
+    <div class="title-section">
+      <h1><i class="fas fa-bolt" style="font-size: 0.9rem;"></i>Streams.center</h1>
+      <p>multi‑lang streams · compact table</p>
+    </div>
+    <div class="stats-badge" id="statsCount"><i class="fas fa-calendar"></i> —</div>
+  </div>
+
+  <div class="control-panel">
+    <div class="search-wrapper">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="team, match, league...">
+    </div>
+    <div class="btn-group">
+      <button class="action-btn" id="refreshBtn"><i class="fas fa-sync-alt"></i> sync</button>
+      <button class="action-btn" id="resetSearchBtn"><i class="fas fa-undo-alt"></i> reset</button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="schedule-table" id="scheduleTable">
+      <thead>
+        <tr><th>matchup</th><th>sport</th><th>time (local)</th><th>sources + lang</th></tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr><td colspan="4" class="empty-state"><span class="loading-spinner"></span> loading schedule...</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer><i class="fas fa-code"></i> each source parsed as URL&lt;Language · copy any link</footer>
+</div>
+
+<script>
+  // ======================== CONFIG ========================
+  // 🔁 REPLACE WITH YOUR REAL OPEN SOURCE API ENDPOINT
+  const API_URL = "https://backend.streamcenter.live/api/Parties?";   // <---- CHANGE THIS
+  
+  const FETCH_OPTIONS = { method: "GET", headers: { "Accept": "application/json" } };
+  // =======================================================
+
+  let allGames = [];
+  let filteredGames = [];
+
+  // parse sources like "https://a.com<English;https://b.com<Arabic"
+  function parseSourceList(raw) {
+    if (!raw || typeof raw !== 'string') return [];
+    let segments = raw.split(/[;\n,]+/).map(s => s.trim()).filter(s => s.length > 0);
+    const result = [];
+    for (let seg of segments) {
+      if (seg.includes("<")) {
+        let lastIdx = seg.lastIndexOf("<");
+        let url = seg.substring(0, lastIdx).trim();
+        let language = seg.substring(lastIdx + 1).trim();
+        if (url && (url.startsWith("http") || url.includes("streams.center"))) {
+          result.push({ url: url, language: language || "stream" });
+        } else {
+          result.push({ url: seg, language: "direct" });
+        }
+      } else {
+        let langGuess = "stream";
+        if (seg.toLowerCase().includes("arabic")) langGuess = "Arabic";
+        else if (seg.toLowerCase().includes("english")) langGuess = "English";
+        result.push({ url: seg, language: langGuess });
+      }
+    }
+    return result.filter(item => item.url && item.url !== "");
+  }
+
+  function extractTeams(game) {
+    let teamA = "Home", teamB = "Away";
+    if (game.name && game.name.includes(" vs ")) {
+      let parts = game.name.split(" vs ");
+      teamA = parts[0]; teamB = parts[1];
+    } else if (game.description && game.description.includes(" at ")) {
+      let parts = game.description.split(" at ");
+      teamA = parts[0];
+      if (parts[1]) teamB = parts[1].split(" -")[0];
+    } else if (game.gameName) {
+      let g = game.gameName;
+      if (g.includes(" at ")) {
+        let spl = g.split(" at ");
+        teamA = spl[0];
+        teamB = spl[1].split(" -")[0];
+      }
+    }
+    return { teamA, teamB, logo1: game.logoTeam1 || "", logo2: game.logoTeam2 || "" };
+  }
+
+  function formatTimeRange(startISO, endISO) {
+    try {
+      let start = new Date(startISO);
+      let end = new Date(endISO);
+      if (isNaN(start)) return { start: "—", end: "" };
+      const opts = { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+      return { start: start.toLocaleString(undefined, opts), end: end.toLocaleString(undefined, { hour:'2-digit', minute:'2-digit' }) };
+    } catch(e) { return { start: "—", end: "" }; }
+  }
+
+  function getCategory(catId) {
+    const map = { 9: "⚽ soccer", 13: "⚾ mlb", 16: "🏒 nhl" };
+    return map[catId] || (catId ? `🎯 sport ${catId}` : "🏅 event");
+  }
+
+  function showToast(msg) {
+    let old = document.querySelector('.toast-msg');
+    if (old) old.remove();
+    let toast = document.createElement('div');
+    toast.className = 'toast-msg';
+    toast.innerHTML = `<i class="fas fa-copy"></i> ${msg}`;
+    document.body.appendChild(toast);
+    setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 500); }, 1800);
+  }
+
+  function copyLink(url, lang) {
+    if (!url) return;
+    navigator.clipboard.writeText(url).then(() => showToast(`✓ ${lang} link copied`)).catch(() => showToast("⚠️ copy failed"));
+  }
+
+  function renderTable() {
+    const tbody = document.getElementById("tableBody");
+    if (!tbody) return;
+    if (filteredGames.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4" class="empty-state">✨ no matches — try another keyword</td></tr>`;
+      document.getElementById("statsCount").innerHTML = `📋 0 / ${allGames.length}`;
+      return;
+    }
+    let html = "";
+    for (let game of filteredGames) {
+      const time = formatTimeRange(game.beginPartie, game.endPartie);
+      const categoryLabel = getCategory(game.categoryId);
+      const { teamA, teamB, logo1, logo2 } = extractTeams(game);
+      
+      let sources = [];
+      if (game.videoUrl) sources = parseSourceList(game.videoUrl);
+      if (game.sources && Array.isArray(game.sources)) {
+        for (let s of game.sources) sources.push(...parseSourceList(s));
+      }
+      if (sources.length === 0) sources = [{ url: "https://streams.center/live", language: "live" }];
+      
+      let sourcesHtml = `<div class="sources-container">`;
+      for (let src of sources) {
+        let langDisplay = src.language && src.language !== "unknown" ? src.language : "source";
+        let langIcon = langDisplay.toLowerCase().includes("arabic") ? "🇸🇦" : (langDisplay.toLowerCase().includes("english") ? "🇬🇧" : "🔗");
+let match = src.url.match(/ch(\d+)/);
+        let displayUrl = match[1];
+let myurl =`https://wasitv-pro.site/gdp/${displayUrl}/index.m3u8|referer=https://streams.center/`;
+        sourcesHtml += `
+          <div class="source-item">
+            <span class="source-url" title="${escapeHtml(src.url)}">${escapeHtml('id: '+displayUrl)}</span>
+            <span class="lang-badge">${langIcon} ${escapeHtml(langDisplay)}</span>
+            <button class="copy-single-btn" data-url="${escapeHtmlAttr(myurl)}" data-lang="${escapeHtmlAttr(langDisplay)}"><i class="fas fa-copy"></i> copy</button>
+          </div>
+        `;
+      }
+      sourcesHtml += `</div>`;
+      
+      html += `<tr>
+        <td>
+          <div class="team-matchup">
+            <div class="team-pill">${logo1 ? `<img class="team-logo" src="${logo1}" onerror="this.src='https://placehold.co/22x22?text=🏆'">` : `<i class="fas fa-flag" style="font-size:0.7rem;"></i>`}<span>${escapeHtml(teamA)}</span></div>
+            <span class="vs-badge">vs</span>
+            <div class="team-pill">${logo2 ? `<img class="team-logo" src="${logo2}" onerror="this.src='https://placehold.co/22x22?text=🏆'">` : `<i class="fas fa-flag" style="font-size:0.7rem;"></i>`}<span>${escapeHtml(teamB)}</span></div>
+            <div class="match-name-sub">${escapeHtml(game.name || game.gameName || "")}</div>
+          </div>
+        </td>
+        <td><span class="category-badge">${categoryLabel}</span></td>
+        <td><span class="time-primary">🕒 ${escapeHtml(time.start)}</span><br><span style="font-size:0.6rem; color:#8f99c2;">→ ${escapeHtml(time.end)}</span></td>
+        <td>${sourcesHtml}</td>
+      </tr>`;
+    }
+    tbody.innerHTML = html;
+    document.getElementById("statsCount").innerHTML = `📅 ${filteredGames.length} / ${allGames.length}`;
+    
+    // attach copy events to each source button
+    document.querySelectorAll('.copy-single-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let url = btn.getAttribute('data-url');
+        let lang = btn.getAttribute('data-lang') || "source";
+        if (url) copyLink(url, lang);
+      });
+    });
+  }
+
+  function escapeHtml(str) {
+    if (!str) return "";
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+  function escapeHtmlAttr(str) {
+    if (!str) return "";
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function applySearch(term) {
+    if (!term.trim()) { filteredGames = [...allGames]; renderTable(); return; }
+    let low = term.trim().toLowerCase();
+    filteredGames = allGames.filter(g => 
+      (g.name && g.name.toLowerCase().includes(low)) ||
+      (g.description && g.description.toLowerCase().includes(low)) ||
+      (g.gameName && g.gameName.toLowerCase().includes(low)) ||
+      (g.categoryId && String(g.categoryId).includes(low))
+    );
+    renderTable();
+  }
+
+  async function fetchData() {
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML = `<tr><td colspan="4" class="empty-state"><span class="loading-spinner"></span> fetching from API ...</td></tr>`;
+    try {
+      const res = await fetch(API_URL, FETCH_OPTIONS);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      let games = Array.isArray(data) ? data : (data.data && Array.isArray(data.data) ? data.data : []);
+      if (!games.length) throw new Error("empty response");
+      allGames = games;
+      filteredGames = [...allGames];
+      renderTable();
+    } catch (err) {
+      console.error(err);
+      tbody.innerHTML = `<tr><td colspan="4" class="error-state"><i class="fas fa-exclamation-triangle"></i> ${escapeHtml(err.message)}<br><span style="font-size:0.65rem;">check endpoint & CORS</span></td></tr>`;
+      document.getElementById("statsCount").innerHTML = "⚠️ error";
+    }
+  }
+
+  function bindEvents() {
+    const search = document.getElementById("searchInput");
+    const reset = document.getElementById("resetSearchBtn");
+    const refresh = document.getElementById("refreshBtn");
+    if (search) search.addEventListener("input", (e) => applySearch(e.target.value));
+    if (reset) reset.addEventListener("click", () => { if (search) search.value = ""; applySearch(""); });
+    if (refresh) refresh.addEventListener("click", () => fetchData());
+  }
+
+  bindEvents();
+  fetchData();
+</script>
+</body>
+</html>
