@@ -1,4 +1,6 @@
 #EXTM3U
 #EXT-X-VERSION:3
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1000000
-https://wasitv-pro.site/mono.m3u8?id=ElevenSports2PL|Referer=https://lovetier.bz/
+#EXTVLCOPT:http-referrer=https://lovetier.bz/
+#EXTVLCOPT:http-origin=https://lovetier.bz
+https://wasitv-pro.site/mono.m3u8?id=ElevenSports2PL
