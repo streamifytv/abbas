@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Stream Link Copier · MPD+M3U8 + ClearKeys Toolkit</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f1f5f9;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      padding: 2rem 1.5rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* header */
+    .header {
+      margin-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #1e293b, #2d3a4f);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+    }
+
+    .sub {
+      color: #475569;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    .stats-badge {
+      background: white;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    /* search + filter */
+    .toolbar {
+      background: white;
+      border-radius: 1rem;
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 1.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    .search-wrap {
+      flex: 2;
+      min-width: 200px;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      border-radius: 60px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-wrap input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+      background: white;
+    }
+
+    .type-filter {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: #f1f5f9;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.15s;
+      color: #334155;
+    }
+
+    .filter-btn.active {
+      background: #1e293b;
+      color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* grid cards */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      padding: 1rem 1.2rem 0.5rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .channel-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: #f8fafc;
+      padding: 0.2rem 0.6rem;
+      border-radius: 30px;
+      letter-spacing: -0.2px;
+      color: #0f172a;
+      word-break: break-word;
+    }
+
+    .type-badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      background: #eef2ff;
+      color: #1e40af;
+      text-transform: uppercase;
+    }
+
+    .type-badge.mpd {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .type-badge.m3u8 {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .card-body {
+      padding: 1rem 1.2rem;
+    }
+
+    .url-preview {
+      background: #f1f5f9;
+      border-radius: 0.8rem;
+      padding: 0.65rem 0.8rem;
+      font-size: 0.75rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      word-break: break-all;
+      color: #1e293b;
+      margin-bottom: 1rem;
+      border: 1px solid #e2e8f0;
+      max-height: 70px;
+      overflow-y: auto;
+    }
+
+    .copy-btn {
+      width: 100%;
+      background: #0f172a;
+      color: white;
+      border: none;
+      padding: 0.7rem 0.5rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .copy-btn:hover {
+      background: #1e293b;
+      transform: scale(0.98);
+    }
+
+    .copy-btn:active {
+      background: #0f172a;
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 1000;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      pointer-events: none;
+      transition: opacity 0.2s;
+      backdrop-filter: blur(8px);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .footer-note {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #64748b;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 1.5rem;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        padding: 1rem;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div>
+      <h1>⚡ Stream Link Copier</h1>
+      <div class="sub">MPD + ClearKeys merged · M3U8 direct copy · One‑click</div>
+    </div>
+    <div class="stats-badge" id="statsBadge">loading channels...</div>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="🔍 Filter by channel name (e.g., bein, willow, prime)">
+    </div>
+    <div class="type-filter">
+      <button class="filter-btn active" data-type="all">All</button>
+      <button class="filter-btn" data-type="mpd">MPD + Keys</button>
+      <button class="filter-btn" data-type="m3u8">M3U8 (iframe)</button>
+    </div>
+  </div>
+
+  <div id="cardsContainer" class="grid">
+    <!-- dynamic cards injected -->
+    <div class="card" style="justify-content:center;align-items:center;padding:2rem;text-align:center;">Loading stream data...</div>
+  </div>
+  <div class="footer-note">
+    💡 Click "Copy stream link" → For MPD: appends <strong>?|drmScheme=clearkey&drmLicense=KEY</strong> with merged keys.<br>
+    🎯 For M3U8: copies the direct .m3u8 URL (extracted from iframe url parameter). MPD entries with clearKeys are combined as shown.
+  </div>
+</div>
+
+<script>
+  // ============================
+  // 1. ORIGINAL DATA (as provided)
+  // ============================
+  const rawData = {
+    "psl1": { "type": "iframe", "url": " https://hlsplayers.pages.dev/player1?url=https://pslurdu.bigbaat.app/out/v1/0ef369b90c7b4025b76621e46ee5fb70/index.m3u8 " },
+    "pc1": { "type": "iframe", "url": " https://hlsplayers.pages.dev/iframe?url=https://wikisport.club/embed/skycric.php " },
+    "pc2": { "type": "iframe", "url": " https://hlsplayers.pages.dev/iframe?url=https://wikisport.club/strm/t11.php " },
+    "ipl1": { "type": "iframe", "url": " https://hlsplayers.pages.dev/iframe?url=https://www.foulembeds.live/embed/fox-sports-501 " },
+    "ipl2": { "type": "iframe", "url": " https://hlsplayers.pages.dev/iframe?url=https://www.foulembeds.live/embed/star-sport-1-hindi " },
+    "ipl3": { "type": "iframe", "url": " https://hlsplayers.pages.dev/iframe?url=https://www.foulembeds.live/embed/sky-sport-1-nz " },
+    "arsenal_vs_bournemouth_afc": { "type": "iframe", "url": "https://hlsplayers.pages.dev/player3?url=https://streaming.cdnx-sportnobar.xyz/live/hd-en-6MuT7JxzsCedndMwau.m3u8" },
+    "real_sociedad_vs_deportivo_alavs": { "type": "iframe", "url": "https://hlsplayers.pages.dev/player3?url=https://streaming.cdnx-sportnobar.xyz/live/hd-en-6MuSsYgm5zYjEyhkZT.m3u8" },
+    "br_dortmund_vs_bayer_leverkusen": { "type": "iframe", "url": "https://hlsplayers.pages.dev/player3?url=https://streaming.cdnx-sportnobar.xyz/live/hd-en-6MuT7Y3CUsFe3ZAatm.m3u8" },
+    "hub4": { "url": "https://bks02.starhubgo.com/bpk-token/1aa@3nfwbabsvygaetxh2umackmdasplrnai3pch1oba/bpk-tv/HubSports4HDnew/output/manifest.mpd", "clearKeys": { "9a29d4f3b6e540b3aa2f36927c01b6f4": "57b670b45b5cb453a9f48fa975b702c1" } },
+    "tsports": { "type": "iframe", "url": "https://hlsplayers.pages.dev/player3?url=https://webott.viatv.com.np/v0t1/ASportsHd/playlist.m3u8" },
+    "prime": { "type": "iframe", "url": "https://hlsplayers.pages.dev/mpd?url=https://live-pv-ta.amazon.fastly-edge.com/lhr-nitro/live/clients/dash/enc/wwrmho82pc/out/v1/d7130f460d41486ea7e8e3eb45f0522f/cenc.mpd&key1=baafdb8ebcbbc0655332291da6f121da&key2=60ac892e0ea0b2c46fc6837c97ed641a" },
+    "primehindi": { "type": "iframe", "url": "https://hlsplayers.pages.dev/mpd?url=https://live-pv-ta.amazon.fastly-edge.com/lhr-nitro/live/clients/dash/enc/wwrmho82pc/out/v1/d7130f460d41486ea7e8e3eb45f0522f/cenc.mpd&key1=baafdb8ebcbbc0655332291da6f121da&key2=60ac892e0ea0b2c46fc6837c97ed641a" },
+    "willow": { "url": "https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/aluw6sbekd/out/v1/9d1d6c30ffb54e49ada82f217509d5f0/cenc.mpd", "clearKeys": { "37552b55f620758d16945215d71e8419": "7f3f418aaeca0f05a3291bb5c9db2992" } },
+    "psn1": { "url": "https://cdn3.skygo.mn/live/disk1/SPSPrime/STRM-CH2-1/SPSPrime.mpd", "clearKeys": { " ": " " } },
+    "psn2": { "url": "https://cdn3.skygo.mn/live/disk1/SPSPlay/STRM-CH2-1/SPSPlay.mpd", "clearKeys": { " ": " " } },
+    "psn4": { "url": "https://cdn3.skygo.mn/live/disk1/SPSFight/DASH-FTA/SPSFight.mpd", "clearKeys": {} },
+    "psn3": { "url": "https://cdn3.skygo.mn/live/disk1/PSN3/STRM-CH2-1/PSN3.mpd", "clearKeys": {} },
+    "psn4_dup": { "url": "https://cdn3.skygo.mn/live/disk1/SPSFight/STRM-CH2-1/SPSFight.mpd", "clearKeys": {} },
+    "psn5": { "url": "https://cdn3.skygo.mn/live/disk1/SPSPlus/DASH-FTA/SPSPlus.mpd", "clearKeys": {} },
+    "bein1": { "url": "https://unifi-live2.secureswiftcontent.com/Content/DASH/Live/channel(Bein1)/master.mpd", "clearKeys": { "d48b6088253c443eb94d27cb7828f707": "e9776141f9e949273a072b0e035070ab" } },
+    "spotvhd": { "url": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/cg_spotvhd/default/index.mpd", "clearKeys": { "ec7ee27d83764e4b845c48cca31c8eef": "9c0e4191203fccb0fde34ee29999129e" } },
+    "nova2sk": { "url": "https://dash2.antik.sk/stream/nvidia_nova_sport2/playlist_cenc.mpd", "clearKeys": { "11223344556677889900112233445566": "4b80724d0ef86bcb2c21f7999d67739d" } },
+    "sportdigital": { "url": "https://otte.live.fly.ww.aiv-cdn.net/fra-nitro/live/clients/dash/enc/ssdefyhkkr/out/v1/cf01290cb7f64525bdf861580a016ca8/cenc.mpd", "clearKeys": { "285f129c5eca01dd08a5d5a14ad801c8": "0ad4080cdff8c60b1233b22087f0b340" } },
+    "setanta1": { "type": "iframe", "url": "https://hlsplayers.pages.dev/mpd?url=https://v4-kun-v13-cdn-02.live.cdn.cgates.lt/live/dash/561002/index.mpd&key1=8ab2332442854e62b0018eec3ee58484&key2=37fdee8b6eef5c96001e8c6fc47bfc08" },
+    "setanta2": { "type": "iframe", "url": "https://hlsplayers.pages.dev/mpd?url=https://v4-kun-v13-cdn-02.live.cdn.cgates.lt/live/dash/561504/index.mpd&key1=9552bcbabfbd4ac19744422143bfb875&key2=e6daacaced7eba147d2b667441060a4f" },
+    "bein3": { "type": "iframe", "url": "https://hlsplayers.pages.dev/mpd?url=https://unifi-live2.secureswiftcontent.com/Content/DASH/Live/channel(Bein3)/master.mpd&key1=816ee2f7c19f49ed84276f34541b465b&key2=ca764a9973b6123a1112cffd3b32010d" },
+    "fox2": { "type": "iframe", "url": "https://hlsplayers.pages.dev/mpd?url=https://otte.live.fly.ww.aiv-cdn.net/iad-nitro/live/clients/dash/enc/awxnrqkbo5/out/v1/716529a4091947b0877e6cb80dbd6ccb/cenc.mpd&key1=09453ce820d65fbc675de3185f9e454c&key2=98cff9600995fa381c76fdacf3c7edae" },
+    "espn1": { "url": "https://cdn02.gigared.com.ar/live/eds/ESPN/sa_live_dash/ESPN.mpd", "clearKeys": { "8b55a3ba068f882f49b36d216f29506f": "77f418bbcfc73739ebca9c52321472d3" } },
+    "bein1aus": { "url": "https://otte.live.fly.ww.aiv-cdn.net/syd-nitro/live/clients/dash/enc/ghwcl6hv68/out/v1/83536910d8034e9b9895a20fbe1c1687/cenc.mpd", "clearKeys": { "335dad778109954503dcbb21dc92015f": "24bfd75d436cbf73168a2a2dccd40281" } },
+    "bein3aus": { "url": "https://a83aivottlinear-a.akamaihd.net/OTTB/syd-nitro/live/clients/dash/enc/q4u5nwaogz/out/v1/18de6d3e65934f3a8de4358e69eab86c/cenc.mpd", "clearKeys": { "7995c724a13748ed970840a8ab5bb9b3": "67bdaf1e2175b9ff682fcdf0e2354b1e" } },
+    "spotv1": { "url": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/cg_spotvhd/default/index.mpd", "clearKeys": { "ec7ee27d83764e4b845c48cca31c8eef": "9c0e4191203fccb0fde34ee29999129e" } },
+    "onesport": { "url": "https://d1zqtf09wb8nt5.cloudfront.net/livedash/oil/freetv/live/one_1/live.livx?indexMode&dvr=7200000", "clearKeys": { "3f9bd29c066a700e8b282c4a9dccf8eb": "6e3314a39d06af5553a16b8550f0691e" } },
+    "sports5": { "url": "https://d1zqtf09wb8nt5.cloudfront.net/livedash/oil/freetv/live/sport_5/live.livx?indexMode&dvr=7200000", "clearKeys": { "c3b32b23081b5486ae5176da9c358808": "4708b352ee1d50ccdf94af9d2a952ed8" } },
+    "laligatv": { "url": "https://a166aivottlinear-a.akamaihd.net/OTTB/dub-nitro/live/clients/dash/enc/k0duzgfejg/out/v1/70a50b1bda944628b8e7e66ab4069419/cenc.mpd", "clearKeys": { "620e51b82596475517a27aa425c52280": "2b9ba811e9c5aeafc8ae1b71cdca4d6a" } }
+  };
+
+  // ============================
+  // 2. Helper: build final copy text based on item
+  // ============================
+  function buildCopyContent(item, channelId) {
+    // CASE: MPD style with "url" field (no type or type undefined but has url and potentially clearKeys)
+    if (item.url && (item.clearKeys !== undefined || Object.keys(item.clearKeys || {}).length >= 0)) {
+      // this is classic mpd entry (hub4, willow, bein1, etc)
+      const mpdUrl = item.url.trim();
+      const keys = item.clearKeys || {};
+      // filter out empty key/value pairs
+      const entries = Object.entries(keys).filter(([kid, keyVal]) => kid && kid.trim() !== "" && keyVal && keyVal.trim() !== "");
+      if (entries.length === 0) {
+        // no valid keys → just return the mpd url (or with empty license)
+        return mpdUrl;
+      }
+      // merge all clearKeys as "kid:key" pairs separated by comma (spec requirement often like kid1:key1,kid2:key2)
+      const licenseString = entries.map(([kid, keyVal]) => `${kid}:${keyVal}`).join(',');
+      // construct final url: mpdUrl?|drmScheme=clearkey&drmLicense=LICENSE_STRING
+      const connector = mpdUrl.includes('?') ? '&' : '|';
+      return `${mpdUrl}${connector}drmScheme=clearkey&drmLicense=${licenseString}`;
+    }
+    
+    // CASE: type = iframe OR any entry that has type iframe OR setanta-like mpd inside iframe
+    if (item.type === 'iframe' && item.url) {
+      let rawIframeUrl = item.url.trim();
+      // extract actual stream url from wrapper: we need to get the real m3u8 or mpd.
+      // based on examples: "https://hlsplayers.pages.dev/player1?url=XXXX.m3u8"
+      // also prime/setanta pattern: /mpd?url=....mpd&key1=...&key2=...
+      // requirements: For M3U8 we copy the m3u8 URL directly (extracted). If it's mpd inside with keys we also format with keys.
+      // Better: extract 'url' parameter from wrapper if exists.
+      let extractedUrl = null;
+      try {
+        const urlObj = new URL(rawIframeUrl);
+        const paramUrl = urlObj.searchParams.get('url');
+        if (paramUrl) {
+          extractedUrl = decodeURIComponent(paramUrl);
+        }
+      } catch(e) { /* ignore */ }
+      
+      // if no extracted url, fallback to the whole iframe url? but spec says copy m3u8 or mpd directly.
+      const targetStreamUrl = extractedUrl || rawIframeUrl;
+      
+      // Now detect if the target stream is .mpd or contains keys via query (for special setanta style where keys are separate)
+      // For entries like prime & setanta that already have key1/key2 in wrapper but target is mpd, we need to rebuild final MPD+keys.
+      const isMpdTarget = targetStreamUrl.includes('.mpd') || targetStreamUrl.includes('manifest.mpd') || targetStreamUrl.includes('cenc.mpd');
+      
+      if (isMpdTarget) {
+        // Check if wrapper has key1 & key2 params -> treat as clearkey pair
+        let kidKeyPairs = [];
+        try {
+          const wrapperObj = new URL(rawIframeUrl);
+          const key1 = wrapperObj.searchParams.get('key1');
+          const key2 = wrapperObj.searchParams.get('key2');
+          if (key1 && key2) {
+            kidKeyPairs.push(`${key1}:${key2}`);
+          } else {
+            // maybe keys embedded as clearKeys in some iframe? but not needed. For setanta/fox2 we rely on key1/key2
+            const extraKey = wrapperObj.searchParams.get('key');
+            if(extraKey) kidKeyPairs.push(extraKey);
+          }
+        } catch(e) {}
+        
+        if (kidKeyPairs.length > 0) {
+          const licenseRaw = kidKeyPairs.join(',');
+          const connector = targetStreamUrl.includes('?') ? '&' : '?';
+          return `${targetStreamUrl}${connector}drmScheme=clearkey&drmLicense=${licenseRaw}`;
+        } else {
+          // just return raw mpd
+          return targetStreamUrl;
+        }
+      } else {
+        // M3U8 or non-mpd: copy direct m3u8 URL (or extracted url)
+        return targetStreamUrl;
+      }
+    }
+    
+    // fallback: if item.url and no type / but we treat as generic (might be mpd from weird structure)
+    if (item.url) {
+      return item.url.trim();
+    }
+    return "# no valid stream url";
+  }
+
+  // ============================
+  // 3. Normalize entries: ensure each channel has a proper type hint and copy builder
+  // ============================
+  function normalizeChannels() {
+    const channels = [];
+    for (const [id, entry] of Object.entries(rawData)) {
+      let typeHint = "unknown";
+      if (entry.type === "iframe") typeHint = "m3u8_or_mpd_wrapper";
+      else if (entry.url && (entry.clearKeys !== undefined)) typeHint = "mpd_with_keys";
+      else if (entry.url && !entry.clearKeys && !entry.type) typeHint = "mpd_no_keys";
+      else if (entry.url && entry.url.includes('.m3u8')) typeHint = "direct_m3u8";
+      
+      channels.push({
+        id: id,
+        displayName: id.replace(/_/g, ' ').replace(/(^\w|\s\w)/g, m => m.toUpperCase()),
+        rawEntry: entry,
+        typeHint: typeHint,
+        // precompute preview
+        previewUrl: (() => {
+          try {
+            let copied = buildCopyContent(entry, id);
+            return copied.length > 80 ? copied.substring(0, 77) + "..." : copied;
+          } catch(e) { return "error"; }
+        })(),
+        fullCopy: () => buildCopyContent(entry, id)
+      });
+    }
+    return channels;
+  }
+
+  let allChannels = normalizeChannels();
+  let filteredChannels = [...allChannels];
+  
+  // UI elements
+  const container = document.getElementById('cardsContainer');
+  const searchInput = document.getElementById('searchInput');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  let activeType = 'all';
+  
+  function updateStats() {
+    const statsSpan = document.getElementById('statsBadge');
+    statsSpan.innerText = `📡 ${filteredChannels.length} / ${allChannels.length} channels`;
+  }
+  
+  function renderCards() {
+    if (filteredChannels.length === 0) {
+      container.innerHTML = `<div class="card" style="grid-column:1/-1; text-align:center;padding:2.5rem;">✨ No matching channels. Try different keyword or filter.</div>`;
+      updateStats();
+      return;
+    }
+    
+    container.innerHTML = filteredChannels.map(ch => {
+      // determine display type badge
+      let badgeText = "MPD + KEYS";
+      let badgeClass = "mpd";
+      const entry = ch.rawEntry;
+      if (entry.type === 'iframe') {
+        const urlParam = (()=>{try{ return new URL(entry.url).searchParams.get('url') }catch(e){return null}})();
+        if (urlParam && (urlParam.includes('.m3u8') || entry.url.includes('.m3u8'))) badgeText = "M3U8";
+        else if (urlParam && urlParam.includes('.mpd')) badgeText = "MPD (wrapper)";
+        else badgeText = "IFRAME · M3U8";
+        badgeClass = "m3u8";
+      } else if (entry.clearKeys !== undefined) {
+        badgeText = "MPD + ClearKeys";
+        badgeClass = "mpd";
+      } else if (entry.url && entry.url.includes('.mpd')) {
+        badgeText = "MPD (no keys)";
+        badgeClass = "mpd";
+      } else if (entry.url && entry.url.includes('.m3u8')) {
+        badgeText = "M3U8 direct";
+        badgeClass = "m3u8";
+      }
+      
+      const previewShort = ch.previewUrl;
+      return `
+        <div class="card" data-channel-id="${ch.id}">
+          <div class="card-header">
+            <span class="channel-name">${escapeHtml(ch.displayName)}</span>
+            <span class="type-badge ${badgeClass}">${badgeText}</span>
+          </div>
+          <div class="card-body">
+            <div class="url-preview" title="Click copy will use full formatted link">📎 ${escapeHtml(previewShort)}</div>
+            <button class="copy-btn" data-id="${ch.id}">
+              <span>📋 COPY STREAM LINK</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+    
+    // attach copy events
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const channelId = btn.getAttribute('data-id');
+        const channel = filteredChannels.find(c => c.id === channelId);
+        if (channel) {
+          const copyText = channel.fullCopy();
+          navigator.clipboard.writeText(copyText).then(() => {
+            showToast(`✅ Copied: ${channel.displayName}`);
+          }).catch(() => {
+            showToast(`❌ Failed to copy`, true);
+          });
+        } else {
+          showToast(`Error: channel not found`, true);
+        }
+      });
+    });
+    updateStats();
+  }
+  
+  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;});}
+  
+  let toastTimeout;
+  function showToast(msg, isError=false) {
+    let existing = document.querySelector('.toast-msg');
+    if(existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.className = 'toast-msg';
+    toast.innerText = msg;
+    if(isError) toast.style.background = "#b91c1c";
+    document.body.appendChild(toast);
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => { toast.style.opacity = '0'; setTimeout(()=>toast.remove(),300); }, 2200);
+  }
+  
+  function applyFilters() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    filteredChannels = allChannels.filter(ch => {
+      const matchesSearch = ch.displayName.toLowerCase().includes(searchTerm) || ch.id.toLowerCase().includes(searchTerm);
+      if (!matchesSearch) return false;
+      if (activeType === 'all') return true;
+      if (activeType === 'mpd') {
+        // MPD category: entries that have clearKeys OR url includes .mpd (or wrapper resulting in mpd copy)
+        const hasMpd = ch.rawEntry.clearKeys !== undefined || (ch.rawEntry.url && ch.rawEntry.url.includes('.mpd')) ||
+                       (ch.rawEntry.type === 'iframe' && (()=>{try{let u = new URL(ch.rawEntry.url); let urlParam = u.searchParams.get('url'); return urlParam && urlParam.includes('.mpd');}catch(e){return false;}})());
+        return hasMpd;
+      }
+      if (activeType === 'm3u8') {
+        const hasM3u8 = (ch.rawEntry.type === 'iframe' && !ch.rawEntry.url.includes('.mpd')) || 
+                        (ch.rawEntry.url && ch.rawEntry.url.includes('.m3u8'));
+        return hasM3u8;
+      }
+      return true;
+    });
+    renderCards();
+  }
+  
+  function initEventListeners() {
+    searchInput.addEventListener('input', () => applyFilters());
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeType = btn.getAttribute('data-type');
+        applyFilters();
+      });
+    });
+  }
+  
+  // initial render
+  filteredChannels = [...allChannels];
+  renderCards();
+  initEventListeners();
+</script>
+</body>
+</html>
