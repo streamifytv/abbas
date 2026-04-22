@@ -216,7 +216,7 @@
     function copyLink(url, btn) {
         navigator.clipboard.writeText(url).then(() => {
             const original = btn.textContent;
-            btn.textContent = 'Ã¢ÂÂ';
+            btn.textContent = '&#128203;';
             btn.classList.add('success');
             setTimeout(() => {
                 btn.textContent = 'Ã°ÂÂÂ';
