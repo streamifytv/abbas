@@ -400,7 +400,7 @@
       
       // case: target is .mpd and we have key1/key2 -> build clearkey MPD link
       if (targetUrl && (targetUrl.includes('.mpd') || targetUrl.includes('manifest.mpd')) && key1 && key2) {
-        const connector = targetUrl.includes('?') ? '&' : '?';
+        const connector = targetUrl.includes('?') ? '&' : '|';
         const licenseString = `${key1}:${key2}`;
         return `${targetUrl}${connector}drmScheme=clearkey&drmLicense=${encodeURIComponent(licenseString)}`;
       }
