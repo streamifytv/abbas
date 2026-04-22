@@ -94,9 +94,9 @@ footer { margin-top: 1rem; text-align: center; font-size: 0.6rem; color: #404768
   <div class="hero">
     <div class="title-section">
       <h1><i class="fas fa-bolt" style="font-size: 0.9rem;"></i>Streams.center</h1>
-      <p>multiâlang streams Â· compact table</p>
+      <p>multiÃ¢ÂÂlang streams ÃÂ· compact table</p>
     </div>
-    <div class="stats-badge" id="statsCount"><i class="fas fa-calendar"></i> â</div>
+    <div class="stats-badge" id="statsCount"><i class="fas fa-calendar"></i> Ã¢ÂÂ</div>
   </div>
 
   <div class="control-panel">
@@ -123,7 +123,7 @@ footer { margin-top: 1rem; text-align: center; font-size: 0.6rem; color: #404768
     </table>
   </div>
 
-  <footer><i class="fas fa-code"></i> each source parsed as URL&lt;Language Â· copy any link</footer>
+  <footer><i class="fas fa-code"></i> each source parsed as URL&lt;Language ÃÂ· copy any link</footer>
 </div>
 
 <script>
@@ -147,13 +147,13 @@ async function copyDirectStream(id, lang) {
     if (match && match[1]) {
       const streamUrl = `https://mainstreams.pro/hls/${match[1]}.m3u8?|Referer=https://streamscenter.online/`;
       navigator.clipboard.writeText(streamUrl);
-      showToast(`â ${lang} Direct link copied!`);
+      showToast(`Ã¢ÂÂ ${lang} Direct link copied!`);
     } else {
-      showToast("â ï¸ Could not find stream ID");
+      showToast("Ã¢ÂÂ Ã¯Â¸Â Could not find stream ID");
     }
   } catch (error) {
     console.error("Error fetching data:", error);
-    showToast("â ï¸ Network error");
+    showToast("Ã¢ÂÂ Ã¯Â¸Â Network error");
   }
 }
 
@@ -186,14 +186,14 @@ function extractTeams(game) {
 function formatTimeRange(startISO, endISO) {
   let start = new Date(startISO);
   let end = new Date(endISO);
-  if (isNaN(start)) return { start: "â", end: "" };
+  if (isNaN(start)) return { start: "Ã¢ÂÂ", end: "" };
   const opts = { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
   return { start: start.toLocaleString(undefined, opts), end: end.toLocaleString(undefined, { hour:'2-digit', minute:'2-digit' }) };
 }
 
 function getCategory(catId) {
-  const map = { 9: "â½ soccer", 13: "â¾ mlb", 16: "ð nhl" };
-  return map[catId] || `ð event`;
+  const map = { 9: "Ã¢ÂÂ½ soccer", 13: "Ã¢ÂÂ¾ mlb", 16: "Ã°ÂÂÂ nhl" };
+  return map[catId] || `Ã°ÂÂÂ event`;
 }
 
 function showToast(msg) {
@@ -212,8 +212,8 @@ function renderTable() {
   if (!tbody) return;
   
   if (filteredGames.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="4" class="empty-state">â¨ no matches â try another keyword</td></tr>`;
-    document.getElementById("statsCount").textContent = `ð 0 / ${allGames.length}`;
+    tbody.innerHTML = `<tr><td colspan="4" class="empty-state">Ã¢ÂÂ¨ no matches Ã¢ÂÂ try another keyword</td></tr>`;
+    document.getElementById("statsCount").textContent = `Ã°ÂÂÂ 0 / ${allGames.length}`;
     return;
   }
 
@@ -226,7 +226,7 @@ function renderTable() {
     let sourcesHtml = `<div class="sources-container ${sourcesCollapsed ? 'collapsed' : 'expanded'}">`;
     
     sources.forEach((src) => {
-      let langIcon = src.language.toLowerCase().includes("arabic") ? "ð¸ð¦" : (src.language.toLowerCase().includes("english") ? "ð¬ð§" : "ð");
+      let langIcon = src.language.toLowerCase().includes("arabic") ? "Ã°ÂÂÂ¸Ã°ÂÂÂ¦" : (src.language.toLowerCase().includes("english") ? "Ã°ÂÂÂ¬Ã°ÂÂÂ§" : "Ã°ÂÂÂ");
       
       // Extract numeric ID from URL if it exists
       const streamIdMatch = src.url.match(/ch(\d+)/) || [null, src.url];
@@ -237,7 +237,7 @@ function renderTable() {
         <span class="lang-badge">${langIcon} ${src.language}</span>
         <div class="btn-group">
           <button class="copy-single-btn" onclick="copyDirectStream('${src.url}', '${src.language}')">Direct</button>
-          <button class="copy-single-btn" onclick="navigator.clipboard.writeText('https://sportzys.pages.dev/?url=${src.url}')">Embed</button>
+          <button class="copy-single-btn" onclick="navigator.clipboard.writeText('https://sportzys.pages.dev/iframe?url=${src.url}')">Embed</button>
         </div>
       </div>`;
     });
@@ -252,12 +252,12 @@ function renderTable() {
         </div>
       </td>
       <td><span class="category-badge">${getCategory(game.categoryId)}</span></td>
-      <td><span class="time-primary">${time.start}</span><br><span style="font-size:0.6rem; color:#8f99c2;">â ${time.end}</span></td>
+      <td><span class="time-primary">${time.start}</span><br><span style="font-size:0.6rem; color:#8f99c2;">Ã¢ÂÂ ${time.end}</span></td>
       <td>${sourcesHtml}</td>
     </tr>`;
   }
   tbody.innerHTML = html;
-  document.getElementById("statsCount").textContent = `ð ${filteredGames.length} / ${allGames.length}`;
+  document.getElementById("statsCount").textContent = `Ã°ÂÂÂ ${filteredGames.length} / ${allGames.length}`;
 }
 
 async function fetchSchedule() {
@@ -270,7 +270,7 @@ async function fetchSchedule() {
     filteredGames = [...allGames];
     renderTable();
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="4" class="error-state">â ï¸ failed to fetch schedule</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="4" class="error-state">Ã¢ÂÂ Ã¯Â¸Â failed to fetch schedule</td></tr>`;
   }
 }
 
