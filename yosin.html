@@ -303,8 +303,7 @@
     <div class="card" style="justify-content:center;align-items:center;padding:2rem;text-align:center;">Loading stream data...</div>
   </div>
   <div class="footer-note">
-    💡 Click "Copy stream link" → For MPD: appends <strong>?|drmScheme=clearkey&drmLicense=KEY</strong> with merged keys.<br>
-    🎯 For M3U8: extracts direct .m3u8 URL (from iframe url parameter) and copies it. MPD entries with clearKeys are combined as shown.
+    Officially Developed for Sportzfy
   </div>
 </div>
 
@@ -367,7 +366,7 @@
       }
       const licenseString = pairs.join(',');
       // determine connector (some mpd urls already have query params)
-      const connector = mpdUrl.includes('?') ? '&' : '?';
+      const connector = mpdUrl.includes('?') ? '&' : '|';
       // use standard parameter pattern: drmScheme=clearkey&drmLicense=...
       return `${mpdUrl}${connector}drmScheme=clearkey&drmLicense=${encodeURIComponent(licenseString)}`;
     }
@@ -400,7 +399,7 @@
       
       // case: target is .mpd and we have key1/key2 -> build clearkey MPD link
       if (targetUrl && (targetUrl.includes('.mpd') || targetUrl.includes('manifest.mpd')) && key1 && key2) {
-        const connector = targetUrl.includes('?') ? '&' : '|';
+        const connector = targetUrl.includes('|') ? '&' : '|';
         const licenseString = `${key1}:${key2}`;
         return `${targetUrl}${connector}drmScheme=clearkey&drmLicense=${encodeURIComponent(licenseString)}`;
       }
