@@ -258,6 +258,15 @@
       padding-top: 1.5rem;
     }
 
+    .error-state {
+      background: #fee2e2;
+      border-left: 4px solid #dc2626;
+      padding: 1rem;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      color: #991b1b;
+    }
+
     @media (max-width: 700px) {
       body {
         padding: 1rem;
@@ -286,227 +295,269 @@
     <div class="type-filter">
       <button class="filter-btn active" data-type="all">All</button>
       <button class="filter-btn" data-type="mpd">MPD + Keys</button>
-      <button class="filter-btn" data-type="m3u8">M3U8 (iframe)</button>
+      <button class="filter-btn" data-type="m3u8">M3U8 (HLS)</button>
     </div>
   </div>
 
   <div id="cardsContainer" class="grid">
-    <!-- dynamic cards injected -->
     <div class="card" style="justify-content:center;align-items:center;padding:2rem;text-align:center;">Loading stream data...</div>
   </div>
   <div class="footer-note">
     💡 Click "Copy stream link" → For MPD: appends <strong>?|drmScheme=clearkey&drmLicense=KEY</strong> with merged keys.<br>
-    🎯 For M3U8: copies the direct .m3u8 URL (extracted from iframe url parameter). MPD entries with clearKeys are combined as shown.
+    🎯 For M3U8: extracts direct .m3u8 URL (from iframe url parameter) and copies it. MPD entries with clearKeys are combined as shown.
   </div>
 </div>
 
 <script>
-  // ============================
-  // 1. ORIGINAL DATA (as provided)
-  // ============================
-  const rawData = {
-    "psl1": { "type": "iframe", "url": " https://hlsplayers.pages.dev/player1?url=https://pslurdu.bigbaat.app/out/v1/0ef369b90c7b4025b76621e46ee5fb70/index.m3u8 " },
-    "pc1": { "type": "iframe", "url": " https://hlsplayers.pages.dev/iframe?url=https://wikisport.club/embed/skycric.php " },
-    "pc2": { "type": "iframe", "url": " https://hlsplayers.pages.dev/iframe?url=https://wikisport.club/strm/t11.php " },
-    "ipl1": { "type": "iframe", "url": " https://hlsplayers.pages.dev/iframe?url=https://www.foulembeds.live/embed/fox-sports-501 " },
-    "ipl2": { "type": "iframe", "url": " https://hlsplayers.pages.dev/iframe?url=https://www.foulembeds.live/embed/star-sport-1-hindi " },
-    "ipl3": { "type": "iframe", "url": " https://hlsplayers.pages.dev/iframe?url=https://www.foulembeds.live/embed/sky-sport-1-nz " },
-    "arsenal_vs_bournemouth_afc": { "type": "iframe", "url": "https://hlsplayers.pages.dev/player3?url=https://streaming.cdnx-sportnobar.xyz/live/hd-en-6MuT7JxzsCedndMwau.m3u8" },
-    "real_sociedad_vs_deportivo_alavs": { "type": "iframe", "url": "https://hlsplayers.pages.dev/player3?url=https://streaming.cdnx-sportnobar.xyz/live/hd-en-6MuSsYgm5zYjEyhkZT.m3u8" },
-    "br_dortmund_vs_bayer_leverkusen": { "type": "iframe", "url": "https://hlsplayers.pages.dev/player3?url=https://streaming.cdnx-sportnobar.xyz/live/hd-en-6MuT7Y3CUsFe3ZAatm.m3u8" },
-    "hub4": { "url": "https://bks02.starhubgo.com/bpk-token/1aa@3nfwbabsvygaetxh2umackmdasplrnai3pch1oba/bpk-tv/HubSports4HDnew/output/manifest.mpd", "clearKeys": { "9a29d4f3b6e540b3aa2f36927c01b6f4": "57b670b45b5cb453a9f48fa975b702c1" } },
-    "tsports": { "type": "iframe", "url": "https://hlsplayers.pages.dev/player3?url=https://webott.viatv.com.np/v0t1/ASportsHd/playlist.m3u8" },
-    "prime": { "type": "iframe", "url": "https://hlsplayers.pages.dev/mpd?url=https://live-pv-ta.amazon.fastly-edge.com/lhr-nitro/live/clients/dash/enc/wwrmho82pc/out/v1/d7130f460d41486ea7e8e3eb45f0522f/cenc.mpd&key1=baafdb8ebcbbc0655332291da6f121da&key2=60ac892e0ea0b2c46fc6837c97ed641a" },
-    "primehindi": { "type": "iframe", "url": "https://hlsplayers.pages.dev/mpd?url=https://live-pv-ta.amazon.fastly-edge.com/lhr-nitro/live/clients/dash/enc/wwrmho82pc/out/v1/d7130f460d41486ea7e8e3eb45f0522f/cenc.mpd&key1=baafdb8ebcbbc0655332291da6f121da&key2=60ac892e0ea0b2c46fc6837c97ed641a" },
-    "willow": { "url": "https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/aluw6sbekd/out/v1/9d1d6c30ffb54e49ada82f217509d5f0/cenc.mpd", "clearKeys": { "37552b55f620758d16945215d71e8419": "7f3f418aaeca0f05a3291bb5c9db2992" } },
-    "psn1": { "url": "https://cdn3.skygo.mn/live/disk1/SPSPrime/STRM-CH2-1/SPSPrime.mpd", "clearKeys": { " ": " " } },
-    "psn2": { "url": "https://cdn3.skygo.mn/live/disk1/SPSPlay/STRM-CH2-1/SPSPlay.mpd", "clearKeys": { " ": " " } },
-    "psn4": { "url": "https://cdn3.skygo.mn/live/disk1/SPSFight/DASH-FTA/SPSFight.mpd", "clearKeys": {} },
-    "psn3": { "url": "https://cdn3.skygo.mn/live/disk1/PSN3/STRM-CH2-1/PSN3.mpd", "clearKeys": {} },
-    "psn4_dup": { "url": "https://cdn3.skygo.mn/live/disk1/SPSFight/STRM-CH2-1/SPSFight.mpd", "clearKeys": {} },
-    "psn5": { "url": "https://cdn3.skygo.mn/live/disk1/SPSPlus/DASH-FTA/SPSPlus.mpd", "clearKeys": {} },
-    "bein1": { "url": "https://unifi-live2.secureswiftcontent.com/Content/DASH/Live/channel(Bein1)/master.mpd", "clearKeys": { "d48b6088253c443eb94d27cb7828f707": "e9776141f9e949273a072b0e035070ab" } },
-    "spotvhd": { "url": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/cg_spotvhd/default/index.mpd", "clearKeys": { "ec7ee27d83764e4b845c48cca31c8eef": "9c0e4191203fccb0fde34ee29999129e" } },
-    "nova2sk": { "url": "https://dash2.antik.sk/stream/nvidia_nova_sport2/playlist_cenc.mpd", "clearKeys": { "11223344556677889900112233445566": "4b80724d0ef86bcb2c21f7999d67739d" } },
-    "sportdigital": { "url": "https://otte.live.fly.ww.aiv-cdn.net/fra-nitro/live/clients/dash/enc/ssdefyhkkr/out/v1/cf01290cb7f64525bdf861580a016ca8/cenc.mpd", "clearKeys": { "285f129c5eca01dd08a5d5a14ad801c8": "0ad4080cdff8c60b1233b22087f0b340" } },
-    "setanta1": { "type": "iframe", "url": "https://hlsplayers.pages.dev/mpd?url=https://v4-kun-v13-cdn-02.live.cdn.cgates.lt/live/dash/561002/index.mpd&key1=8ab2332442854e62b0018eec3ee58484&key2=37fdee8b6eef5c96001e8c6fc47bfc08" },
-    "setanta2": { "type": "iframe", "url": "https://hlsplayers.pages.dev/mpd?url=https://v4-kun-v13-cdn-02.live.cdn.cgates.lt/live/dash/561504/index.mpd&key1=9552bcbabfbd4ac19744422143bfb875&key2=e6daacaced7eba147d2b667441060a4f" },
-    "bein3": { "type": "iframe", "url": "https://hlsplayers.pages.dev/mpd?url=https://unifi-live2.secureswiftcontent.com/Content/DASH/Live/channel(Bein3)/master.mpd&key1=816ee2f7c19f49ed84276f34541b465b&key2=ca764a9973b6123a1112cffd3b32010d" },
-    "fox2": { "type": "iframe", "url": "https://hlsplayers.pages.dev/mpd?url=https://otte.live.fly.ww.aiv-cdn.net/iad-nitro/live/clients/dash/enc/awxnrqkbo5/out/v1/716529a4091947b0877e6cb80dbd6ccb/cenc.mpd&key1=09453ce820d65fbc675de3185f9e454c&key2=98cff9600995fa381c76fdacf3c7edae" },
-    "espn1": { "url": "https://cdn02.gigared.com.ar/live/eds/ESPN/sa_live_dash/ESPN.mpd", "clearKeys": { "8b55a3ba068f882f49b36d216f29506f": "77f418bbcfc73739ebca9c52321472d3" } },
-    "bein1aus": { "url": "https://otte.live.fly.ww.aiv-cdn.net/syd-nitro/live/clients/dash/enc/ghwcl6hv68/out/v1/83536910d8034e9b9895a20fbe1c1687/cenc.mpd", "clearKeys": { "335dad778109954503dcbb21dc92015f": "24bfd75d436cbf73168a2a2dccd40281" } },
-    "bein3aus": { "url": "https://a83aivottlinear-a.akamaihd.net/OTTB/syd-nitro/live/clients/dash/enc/q4u5nwaogz/out/v1/18de6d3e65934f3a8de4358e69eab86c/cenc.mpd", "clearKeys": { "7995c724a13748ed970840a8ab5bb9b3": "67bdaf1e2175b9ff682fcdf0e2354b1e" } },
-    "spotv1": { "url": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/cg_spotvhd/default/index.mpd", "clearKeys": { "ec7ee27d83764e4b845c48cca31c8eef": "9c0e4191203fccb0fde34ee29999129e" } },
-    "onesport": { "url": "https://d1zqtf09wb8nt5.cloudfront.net/livedash/oil/freetv/live/one_1/live.livx?indexMode&dvr=7200000", "clearKeys": { "3f9bd29c066a700e8b282c4a9dccf8eb": "6e3314a39d06af5553a16b8550f0691e" } },
-    "sports5": { "url": "https://d1zqtf09wb8nt5.cloudfront.net/livedash/oil/freetv/live/sport_5/live.livx?indexMode&dvr=7200000", "clearKeys": { "c3b32b23081b5486ae5176da9c358808": "4708b352ee1d50ccdf94af9d2a952ed8" } },
-    "laligatv": { "url": "https://a166aivottlinear-a.akamaihd.net/OTTB/dub-nitro/live/clients/dash/enc/k0duzgfejg/out/v1/70a50b1bda944628b8e7e66ab4069419/cenc.mpd", "clearKeys": { "620e51b82596475517a27aa425c52280": "2b9ba811e9c5aeafc8ae1b71cdca4d6a" } }
-  };
-
-  // ============================
-  // 2. Helper: build final copy text based on item
-  // ============================
-  function buildCopyContent(item, channelId) {
-    // CASE: MPD style with "url" field (no type or type undefined but has url and potentially clearKeys)
-    if (item.url && (item.clearKeys !== undefined || Object.keys(item.clearKeys || {}).length >= 0)) {
-      // this is classic mpd entry (hub4, willow, bein1, etc)
-      const mpdUrl = item.url.trim();
-      const keys = item.clearKeys || {};
-      // filter out empty key/value pairs
-      const entries = Object.entries(keys).filter(([kid, keyVal]) => kid && kid.trim() !== "" && keyVal && keyVal.trim() !== "");
-      if (entries.length === 0) {
-        // no valid keys → just return the mpd url (or with empty license)
+  // ============================================================
+  //  FIXED APP: robust fetching, correct ClearKey merging, M3U8 extraction
+  // ============================================================
+  
+  let globalRawData = null;
+  let allChannels = [];
+  let filteredChannels = [];
+  
+  // DOM elements
+  const container = document.getElementById('cardsContainer');
+  const searchInput = document.getElementById('searchInput');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const statsSpan = document.getElementById('statsBadge');
+  let activeType = 'all';
+  
+  // Helper: show toast notifications
+  let toastTimeout;
+  function showToast(msg, isError = false) {
+    let existing = document.querySelector('.toast-msg');
+    if (existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.className = 'toast-msg';
+    toast.innerText = msg;
+    if (isError) toast.style.background = "#b91c1c";
+    document.body.appendChild(toast);
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 2200);
+  }
+  
+  // escape HTML
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+  
+  // ============================================================
+  // CORE: build final copy string (MPD+ClearKeys, M3U8 direct, wrapper extraction)
+  // ============================================================
+  function buildFinalStreamUrl(entry, channelId) {
+    // 1) MPD with explicit clearKeys (original MPD entries like hub4, willow, bein1)
+    if (entry.url && (entry.clearKeys !== undefined || (entry.clearKeys && Object.keys(entry.clearKeys).length > 0))) {
+      const mpdUrl = entry.url.trim();
+      const keys = entry.clearKeys || {};
+      // build kid:key pairs, filter empty
+      const pairs = Object.entries(keys)
+        .filter(([kid, keyVal]) => kid && kid.trim() !== "" && keyVal && keyVal.trim() !== "")
+        .map(([kid, keyVal]) => `${kid.trim()}:${keyVal.trim()}`);
+      
+      if (pairs.length === 0) {
         return mpdUrl;
       }
-      // merge all clearKeys as "kid:key" pairs separated by comma (spec requirement often like kid1:key1,kid2:key2)
-      const licenseString = entries.map(([kid, keyVal]) => `${kid}:${keyVal}`).join(',');
-      // construct final url: mpdUrl?|drmScheme=clearkey&drmLicense=LICENSE_STRING
-      const connector = mpdUrl.includes('?') ? '&' : '|';
-      return `${mpdUrl}${connector}drmScheme=clearkey&drmLicense=${licenseString}`;
+      const licenseString = pairs.join(',');
+      // determine connector (some mpd urls already have query params)
+      const connector = mpdUrl.includes('?') ? '&' : '?';
+      // use standard parameter pattern: drmScheme=clearkey&drmLicense=...
+      return `${mpdUrl}${connector}drmScheme=clearkey&drmLicense=${encodeURIComponent(licenseString)}`;
     }
     
-    // CASE: type = iframe OR any entry that has type iframe OR setanta-like mpd inside iframe
-    if (item.type === 'iframe' && item.url) {
-      let rawIframeUrl = item.url.trim();
-      // extract actual stream url from wrapper: we need to get the real m3u8 or mpd.
-      // based on examples: "https://hlsplayers.pages.dev/player1?url=XXXX.m3u8"
-      // also prime/setanta pattern: /mpd?url=....mpd&key1=...&key2=...
-      // requirements: For M3U8 we copy the m3u8 URL directly (extracted). If it's mpd inside with keys we also format with keys.
-      // Better: extract 'url' parameter from wrapper if exists.
-      let extractedUrl = null;
+    // 2) iframe wrapper (prime, setanta, fox etc) — extract real stream URL
+    if (entry.type === 'iframe' && entry.url) {
+      const iframeUrl = entry.url.trim();
+      let extractedStream = null;
+      let key1 = null, key2 = null;
       try {
-        const urlObj = new URL(rawIframeUrl);
+        const urlObj = new URL(iframeUrl);
+        // get 'url' parameter
         const paramUrl = urlObj.searchParams.get('url');
         if (paramUrl) {
-          extractedUrl = decodeURIComponent(paramUrl);
+          extractedStream = decodeURIComponent(paramUrl);
         }
-      } catch(e) { /* ignore */ }
-      
-      // if no extracted url, fallback to the whole iframe url? but spec says copy m3u8 or mpd directly.
-      const targetStreamUrl = extractedUrl || rawIframeUrl;
-      
-      // Now detect if the target stream is .mpd or contains keys via query (for special setanta style where keys are separate)
-      // For entries like prime & setanta that already have key1/key2 in wrapper but target is mpd, we need to rebuild final MPD+keys.
-      const isMpdTarget = targetStreamUrl.includes('.mpd') || targetStreamUrl.includes('manifest.mpd') || targetStreamUrl.includes('cenc.mpd');
-      
-      if (isMpdTarget) {
-        // Check if wrapper has key1 & key2 params -> treat as clearkey pair
-        let kidKeyPairs = [];
-        try {
-          const wrapperObj = new URL(rawIframeUrl);
-          const key1 = wrapperObj.searchParams.get('key1');
-          const key2 = wrapperObj.searchParams.get('key2');
-          if (key1 && key2) {
-            kidKeyPairs.push(`${key1}:${key2}`);
-          } else {
-            // maybe keys embedded as clearKeys in some iframe? but not needed. For setanta/fox2 we rely on key1/key2
-            const extraKey = wrapperObj.searchParams.get('key');
-            if(extraKey) kidKeyPairs.push(extraKey);
-          }
-        } catch(e) {}
-        
-        if (kidKeyPairs.length > 0) {
-          const licenseRaw = kidKeyPairs.join(',');
-          const connector = targetStreamUrl.includes('?') ? '&' : '?';
-          return `${targetStreamUrl}${connector}drmScheme=clearkey&drmLicense=${licenseRaw}`;
-        } else {
-          // just return raw mpd
-          return targetStreamUrl;
+        // also capture key1/key2 if present (for MPD wrappers like setanta)
+        key1 = urlObj.searchParams.get('key1');
+        key2 = urlObj.searchParams.get('key2');
+      } catch (e) {
+        // if URL parsing fails, fallback to original iframe string but try regex extraction as backup
+        const match = iframeUrl.match(/[?&]url=([^&]+)/);
+        if (match && match[1]) {
+          extractedStream = decodeURIComponent(match[1]);
         }
-      } else {
-        // M3U8 or non-mpd: copy direct m3u8 URL (or extracted url)
-        return targetStreamUrl;
       }
+      
+      // if no extracted url, we might have direct .m3u8 inside the iframe src itself? but spec says most have url param
+      const targetUrl = extractedStream || iframeUrl;
+      
+      // case: target is .mpd and we have key1/key2 -> build clearkey MPD link
+      if (targetUrl && (targetUrl.includes('.mpd') || targetUrl.includes('manifest.mpd')) && key1 && key2) {
+        const connector = targetUrl.includes('?') ? '&' : '?';
+        const licenseString = `${key1}:${key2}`;
+        return `${targetUrl}${connector}drmScheme=clearkey&drmLicense=${encodeURIComponent(licenseString)}`;
+      }
+      
+      // case: target is M3U8 (or any .m3u8) -> return direct m3u8 link
+      if (targetUrl && targetUrl.includes('.m3u8')) {
+        return targetUrl;
+      }
+      
+      // fallback: if extractedStream is a clean mpd without keys, just return it
+      if (targetUrl && (targetUrl.includes('.mpd') || targetUrl.includes('.m3u8'))) {
+        return targetUrl;
+      }
+      
+      // final fallback: return the original iframe url (not ideal but prevents empty copy)
+      return iframeUrl;
     }
     
-    // fallback: if item.url and no type / but we treat as generic (might be mpd from weird structure)
-    if (item.url) {
-      return item.url.trim();
+    // 3) direct .m3u8 entries (some channels might have direct m3u8)
+    if (entry.url && entry.url.includes('.m3u8')) {
+      return entry.url.trim();
     }
-    return "# no valid stream url";
+    
+    // 4) plain MPD without keys (rare but handle)
+    if (entry.url && (entry.url.includes('.mpd') || entry.url.includes('manifest'))) {
+      return entry.url.trim();
+    }
+    
+    // 5) fallback to url if exists
+    if (entry.url) {
+      return entry.url.trim();
+    }
+    
+    return "# No stream URL available";
   }
-
-  // ============================
-  // 3. Normalize entries: ensure each channel has a proper type hint and copy builder
-  // ============================
-  function normalizeChannels() {
+  
+  // preview shortener (for display)
+  function getPreview(entry, id) {
+    try {
+      const full = buildFinalStreamUrl(entry, id);
+      if (full.length > 80) return full.substring(0, 77) + "...";
+      return full;
+    } catch (e) {
+      return "Unable to preview";
+    }
+  }
+  
+  // determine badge type & class
+  function getBadgeInfo(entry) {
+    // check if it's an MPD with keys
+    if (entry.clearKeys && Object.keys(entry.clearKeys).length > 0) {
+      return { text: "MPD + ClearKeys", class: "mpd" };
+    }
+    // iframe wrapper logic
+    if (entry.type === 'iframe') {
+      let innerUrl = "";
+      try {
+        const urlObj = new URL(entry.url);
+        innerUrl = urlObj.searchParams.get('url') || "";
+      } catch(e) { innerUrl = ""; }
+      if (innerUrl && innerUrl.includes('.mpd')) return { text: "MPD (wrapper)", class: "mpd" };
+      if (innerUrl && innerUrl.includes('.m3u8')) return { text: "M3U8 (HLS)", class: "m3u8" };
+      return { text: "IFRAME · Stream", class: "m3u8" };
+    }
+    if (entry.url && entry.url.includes('.mpd')) return { text: "MPD Stream", class: "mpd" };
+    if (entry.url && entry.url.includes('.m3u8')) return { text: "M3U8 Direct", class: "m3u8" };
+    return { text: "Stream Link", class: "m3u8" };
+  }
+  
+  // normalize channels from fetched JSON
+  function normalizeChannels(data) {
     const channels = [];
-    for (const [id, entry] of Object.entries(rawData)) {
-      let typeHint = "unknown";
-      if (entry.type === "iframe") typeHint = "m3u8_or_mpd_wrapper";
-      else if (entry.url && (entry.clearKeys !== undefined)) typeHint = "mpd_with_keys";
-      else if (entry.url && !entry.clearKeys && !entry.type) typeHint = "mpd_no_keys";
-      else if (entry.url && entry.url.includes('.m3u8')) typeHint = "direct_m3u8";
-      
+    if (!data || typeof data !== 'object') return channels;
+    
+    for (const [id, entry] of Object.entries(data)) {
+      if (!entry) continue;
+      // ensure entry has at least url or type
+      const displayName = id.replace(/_/g, ' ').replace(/(^\w|\s\w)/g, m => m.toUpperCase());
       channels.push({
         id: id,
-        displayName: id.replace(/_/g, ' ').replace(/(^\w|\s\w)/g, m => m.toUpperCase()),
+        displayName: displayName,
         rawEntry: entry,
-        typeHint: typeHint,
-        // precompute preview
-        previewUrl: (() => {
-          try {
-            let copied = buildCopyContent(entry, id);
-            return copied.length > 80 ? copied.substring(0, 77) + "..." : copied;
-          } catch(e) { return "error"; }
-        })(),
-        fullCopy: () => buildCopyContent(entry, id)
+        preview: getPreview(entry, id),
+        getCopyContent: () => buildFinalStreamUrl(entry, id),
+        badge: getBadgeInfo(entry)
       });
     }
     return channels;
   }
-
-  let allChannels = normalizeChannels();
-  let filteredChannels = [...allChannels];
   
-  // UI elements
-  const container = document.getElementById('cardsContainer');
-  const searchInput = document.getElementById('searchInput');
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  let activeType = 'all';
-  
-  function updateStats() {
-    const statsSpan = document.getElementById('statsBadge');
-    statsSpan.innerText = `📡 ${filteredChannels.length} / ${allChannels.length} channels`;
+  // filter logic (search + type)
+  function applyFilters() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    filteredChannels = allChannels.filter(ch => {
+      // search match on displayName or id
+      const matchSearch = ch.displayName.toLowerCase().includes(searchTerm) || ch.id.toLowerCase().includes(searchTerm);
+      if (!matchSearch) return false;
+      
+      if (activeType === 'all') return true;
+      
+      if (activeType === 'mpd') {
+        // channel qualifies as MPD if it has clearKeys OR rawEntry.url contains .mpd OR iframe wrapper leads to mpd
+        const entry = ch.rawEntry;
+        if (entry.clearKeys && Object.keys(entry.clearKeys).length > 0) return true;
+        if (entry.url && entry.url.includes('.mpd')) return true;
+        if (entry.type === 'iframe') {
+          try {
+            const urlObj = new URL(entry.url);
+            const inner = urlObj.searchParams.get('url');
+            if (inner && inner.includes('.mpd')) return true;
+          } catch(e) {}
+        }
+        return false;
+      }
+      
+      if (activeType === 'm3u8') {
+        const entry = ch.rawEntry;
+        if (entry.url && entry.url.includes('.m3u8')) return true;
+        if (entry.type === 'iframe') {
+          try {
+            const urlObj = new URL(entry.url);
+            const inner = urlObj.searchParams.get('url');
+            if (inner && inner.includes('.m3u8')) return true;
+          } catch(e) {}
+          // if no inner, but type iframe and not mpd, consider m3u8
+          if (!(entry.clearKeys)) return true;
+        }
+        // direct m3u8 fallback
+        if (entry.url && entry.url.includes('.m3u8')) return true;
+        return false;
+      }
+      return false;
+    });
+    renderCards();
   }
   
+  // render cards to DOM
   function renderCards() {
+    if (!container) return;
     if (filteredChannels.length === 0) {
       container.innerHTML = `<div class="card" style="grid-column:1/-1; text-align:center;padding:2.5rem;">✨ No matching channels. Try different keyword or filter.</div>`;
-      updateStats();
+      statsSpan.innerText = `📡 0 / ${allChannels.length} channels`;
       return;
     }
     
-    container.innerHTML = filteredChannels.map(ch => {
-      // determine display type badge
-      let badgeText = "MPD + KEYS";
-      let badgeClass = "mpd";
-      const entry = ch.rawEntry;
-      if (entry.type === 'iframe') {
-        const urlParam = (()=>{try{ return new URL(entry.url).searchParams.get('url') }catch(e){return null}})();
-        if (urlParam && (urlParam.includes('.m3u8') || entry.url.includes('.m3u8'))) badgeText = "M3U8";
-        else if (urlParam && urlParam.includes('.mpd')) badgeText = "MPD (wrapper)";
-        else badgeText = "IFRAME · M3U8";
-        badgeClass = "m3u8";
-      } else if (entry.clearKeys !== undefined) {
-        badgeText = "MPD + ClearKeys";
-        badgeClass = "mpd";
-      } else if (entry.url && entry.url.includes('.mpd')) {
-        badgeText = "MPD (no keys)";
-        badgeClass = "mpd";
-      } else if (entry.url && entry.url.includes('.m3u8')) {
-        badgeText = "M3U8 direct";
-        badgeClass = "m3u8";
-      }
-      
-      const previewShort = ch.previewUrl;
+    const cardsHtml = filteredChannels.map(ch => {
+      const badge = ch.badge;
+      const previewEscaped = escapeHtml(ch.preview);
+      const displayNameEscaped = escapeHtml(ch.displayName);
       return `
         <div class="card" data-channel-id="${ch.id}">
           <div class="card-header">
-            <span class="channel-name">${escapeHtml(ch.displayName)}</span>
-            <span class="type-badge ${badgeClass}">${badgeText}</span>
+            <span class="channel-name">${displayNameEscaped}</span>
+            <span class="type-badge ${badge.class}">${escapeHtml(badge.text)}</span>
           </div>
           <div class="card-body">
-            <div class="url-preview" title="Click copy will use full formatted link">📎 ${escapeHtml(previewShort)}</div>
+            <div class="url-preview" title="Click copy will use full formatted link">📎 ${previewEscaped}</div>
             <button class="copy-btn" data-id="${ch.id}">
               <span>📋 COPY STREAM LINK</span>
             </button>
@@ -515,66 +566,39 @@
       `;
     }).join('');
     
-    // attach copy events
+    container.innerHTML = cardsHtml;
+    
+    // attach copy event listeners
     document.querySelectorAll('.copy-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const channelId = btn.getAttribute('data-id');
         const channel = filteredChannels.find(c => c.id === channelId);
         if (channel) {
-          const copyText = channel.fullCopy();
-          navigator.clipboard.writeText(copyText).then(() => {
-            showToast(`✅ Copied: ${channel.displayName}`);
-          }).catch(() => {
-            showToast(`❌ Failed to copy`, true);
-          });
+          const copyText = channel.getCopyContent();
+          if (copyText && copyText !== "# No stream URL available") {
+            navigator.clipboard.writeText(copyText).then(() => {
+              showToast(`✅ Copied: ${channel.displayName}`);
+            }).catch(() => {
+              showToast(`❌ Clipboard error`, true);
+            });
+          } else {
+            showToast(`⚠️ No valid stream URL for ${channel.displayName}`, true);
+          }
         } else {
-          showToast(`Error: channel not found`, true);
+          showToast(`❌ Channel not found`, true);
         }
       });
     });
-    updateStats();
+    
+    statsSpan.innerText = `📡 ${filteredChannels.length} / ${allChannels.length} channels`;
   }
   
-  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;});}
-  
-  let toastTimeout;
-  function showToast(msg, isError=false) {
-    let existing = document.querySelector('.toast-msg');
-    if(existing) existing.remove();
-    const toast = document.createElement('div');
-    toast.className = 'toast-msg';
-    toast.innerText = msg;
-    if(isError) toast.style.background = "#b91c1c";
-    document.body.appendChild(toast);
-    clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => { toast.style.opacity = '0'; setTimeout(()=>toast.remove(),300); }, 2200);
-  }
-  
-  function applyFilters() {
-    const searchTerm = searchInput.value.trim().toLowerCase();
-    filteredChannels = allChannels.filter(ch => {
-      const matchesSearch = ch.displayName.toLowerCase().includes(searchTerm) || ch.id.toLowerCase().includes(searchTerm);
-      if (!matchesSearch) return false;
-      if (activeType === 'all') return true;
-      if (activeType === 'mpd') {
-        // MPD category: entries that have clearKeys OR url includes .mpd (or wrapper resulting in mpd copy)
-        const hasMpd = ch.rawEntry.clearKeys !== undefined || (ch.rawEntry.url && ch.rawEntry.url.includes('.mpd')) ||
-                       (ch.rawEntry.type === 'iframe' && (()=>{try{let u = new URL(ch.rawEntry.url); let urlParam = u.searchParams.get('url'); return urlParam && urlParam.includes('.mpd');}catch(e){return false;}})());
-        return hasMpd;
-      }
-      if (activeType === 'm3u8') {
-        const hasM3u8 = (ch.rawEntry.type === 'iframe' && !ch.rawEntry.url.includes('.mpd')) || 
-                        (ch.rawEntry.url && ch.rawEntry.url.includes('.m3u8'));
-        return hasM3u8;
-      }
-      return true;
-    });
-    renderCards();
-  }
-  
+  // event listeners for search and filters
   function initEventListeners() {
-    searchInput.addEventListener('input', () => applyFilters());
+    if (searchInput) {
+      searchInput.addEventListener('input', () => applyFilters());
+    }
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
@@ -585,10 +609,44 @@
     });
   }
   
-  // initial render
-  filteredChannels = [...allChannels];
-  renderCards();
-  initEventListeners();
+  // fetch data from official source (FIXED: proper fetch + error handling)
+  async function fetchAndLoadData() {
+    try {
+      // Show loading state
+      container.innerHTML = `<div class="card" style="grid-column:1/-1; text-align:center;padding:2rem;">📡 Fetching latest stream data...</div>`;
+      const response = await fetch('https://yosintv100.pages.dev/playlist.json');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      const data = await response.json();
+      if (!data || typeof data !== 'object' || Object.keys(data).length === 0) {
+        throw new Error("Empty or invalid data structure");
+      }
+      globalRawData = data;
+      allChannels = normalizeChannels(globalRawData);
+      filteredChannels = [...allChannels];
+      renderCards();
+      initEventListeners();
+    } catch (error) {
+      console.error("Data loading error:", error);
+      container.innerHTML = `
+        <div class="error-state" style="grid-column:1/-1; margin: 1rem;">
+          ⚠️ Failed to load stream data: ${error.message}<br><br>
+          <button id="retryFetchBtn" style="background:#1e293b; color:white; border:none; padding:0.5rem 1rem; border-radius:2rem; cursor:pointer;">⟳ Retry</button>
+        </div>
+      `;
+      statsSpan.innerText = "⚠️ Load error";
+      const retryBtn = document.getElementById('retryFetchBtn');
+      if (retryBtn) {
+        retryBtn.addEventListener('click', () => {
+          fetchAndLoadData();
+        });
+      }
+    }
+  }
+  
+  // start the app
+  fetchAndLoadData();
 </script>
 </body>
 </html>
