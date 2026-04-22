@@ -206,7 +206,7 @@
                 <td class="col-link">${item.url}</td>
                 <td class="col-copy">
                     <button class="copy-icon" onclick="copyLink('https://sportzys.pages.dev/iframe?url=${item.url}', this)" title="Copy Link">
-                        ð
+                     &#128203;
                     </button>
                 </td>
             </tr>
@@ -216,10 +216,10 @@
     function copyLink(url, btn) {
         navigator.clipboard.writeText(url).then(() => {
             const original = btn.textContent;
-            btn.textContent = 'â';
+            btn.textContent = 'Ã¢ÂÂ';
             btn.classList.add('success');
             setTimeout(() => {
-                btn.textContent = 'ð';
+                btn.textContent = 'Ã°ÂÂÂ';
                 btn.classList.remove('success');
             }, 1500);
         });
