@@ -1,6 +1,4 @@
 #EXTM3U
-
-
 #KODIPROP:inputstream.adaptive.license_type=com.clearkey.alpha
 #KODIPROP:inputstream.adaptive.license_key={"keys":[{"kty":"oct","k":"mGn4BLoY1-UIy_94GCkiHA","kid":"Ob0wLN7tNxCon7AE0jKrZw"}],"type":"temporary"}
 #EXTINF:-1 tvg-logo="" group-title="Entertainment", English | Papua New Guinea v Japan (JAPANESE)
