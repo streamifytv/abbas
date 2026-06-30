@@ -1,0 +1,137 @@
+#EXTM3U
+#EXTINF:-1 tvg-logo="https://crichd.art/assets/uploads/channels/1.jpg" group-title="General",Sky Sports Main Event
+https://crichd.streamit.workers.dev/?c=skysme&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="https://crichd.art/assets/uploads/channels/3.png" group-title="General",Sky Sports Cricket
+https://crichd.streamit.workers.dev/?c=skyscric&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="https://crichd.art/assets/uploads/channels/4.png" group-title="General",Sky Sports Action
+https://crichd.streamit.workers.dev/?c=skysact&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="https://crichd.art/assets/uploads/channels/5.png" group-title="General",Sky Sports Golf
+https://crichd.streamit.workers.dev/?c=skysgol&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="https://crichd.art/assets/uploads/channels/6.jpg" group-title="General",Sky Sports Premier League
+https://crichd.streamit.workers.dev/?c=skysprem&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sports Football
+https://crichd.streamit.workers.dev/?c=skysfott&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sports F1
+https://crichd.streamit.workers.dev/?c=skysfor1&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sports Mix
+https://crichd.streamit.workers.dev/?c=skysmixx&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sports News
+https://crichd.streamit.workers.dev/?c=skyspnews&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sports Tennis
+https://crichd.streamit.workers.dev/?c=skystennis&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",TNT Sports 1
+https://crichd.streamit.workers.dev/?c=bbtsp1&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",TNT Sports 2
+https://crichd.streamit.workers.dev/?c=bbtsp2&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",TNT Sports 3
+https://crichd.streamit.workers.dev/?c=bbtsp3&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",TNT Sports 4
+https://crichd.streamit.workers.dev/?c=bbtespn&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Viaplay Sports 1 UK
+https://crichd.streamit.workers.dev/?c=premieruk&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Viaplay Sports 2 UK
+https://crichd.streamit.workers.dev/?c=hdchnl2&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",LaLiga TV UK
+https://crichd.streamit.workers.dev/?c=laligauk&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",PTV Sports
+https://crichd.streamit.workers.dev/?c=ptvpk&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Star Sports 1
+https://crichd.streamit.workers.dev/?c=star1in&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Willow Cricket
+https://crichd.streamit.workers.dev/?c=willowusa&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Ten Sports
+https://crichd.streamit.workers.dev/?c=tenspk&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Star Sports 1 Hindi
+https://crichd.streamit.workers.dev/?c=starhindi&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Willow Cricket Extra
+https://crichd.streamit.workers.dev/?c=willowextra&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",A Sports HD
+https://crichd.streamit.workers.dev/?c=asportshd&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",ESPN US
+https://crichd.streamit.workers.dev/?c=espnusa&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",ESPN 2 US
+https://crichd.streamit.workers.dev/?c=espn2&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sony Ten 3
+https://crichd.streamit.workers.dev/?c=sonyten3&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sony Ten 1
+https://crichd.streamit.workers.dev/?c=sonyten1&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sports Box Office
+https://crichd.streamit.workers.dev/?c=skyboxoff&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sport 1 NZ
+https://crichd.streamit.workers.dev/?c=sky1nz&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sport 2 NZ
+https://crichd.streamit.workers.dev/?c=sky2nz&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sport 3 NZ
+https://crichd.streamit.workers.dev/?c=sky3nz&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sport 4 NZ
+https://crichd.streamit.workers.dev/?c=sky4nz&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sport 5 NZ
+https://crichd.streamit.workers.dev/?c=sky5nz&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sport 6 NZ
+https://crichd.streamit.workers.dev/?c=sky6nz&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sport 7 NZ
+https://crichd.streamit.workers.dev/?c=sky7nz&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sport 8 NZ
+https://crichd.streamit.workers.dev/?c=sky8nz&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Sky Sport 9 NZ
+https://crichd.streamit.workers.dev/?c=sky9nz&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Fox Deportes
+https://crichd.streamit.workers.dev/?c=foxdeportesas1&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",BeIn Sports USA
+https://crichd.streamit.workers.dev/?c=beinusas&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",BeIn Sports Xtra
+https://crichd.streamit.workers.dev/?c=bein2xtra&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",BeIn Sports HD 1 France
+https://crichd.streamit.workers.dev/?c=bein1france&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Telemundo
+https://crichd.streamit.workers.dev/?c=telmunda&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Fox Sports 1 US
+https://crichd.streamit.workers.dev/?c=foxsp1usa&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Fox Sports 2 US
+https://crichd.streamit.workers.dev/?c=foxsp2usa&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",TUDN USA
+https://crichd.streamit.workers.dev/?c=tudnusas&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Movistar #Vamos
+https://crichd.streamit.workers.dev/?c=mvamoss&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",NBC
+https://crichd.streamit.workers.dev/?c=nbccs&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Movistar Deportes
+https://crichd.streamit.workers.dev/?c=mdeportess&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",DAZN 1 Spain
+https://crichd.streamit.workers.dev/?c=dazn1sp1&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",DAZN 2 Spain
+https://crichd.streamit.workers.dev/?c=dazn2sp2&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",DAZN 3 Spain
+https://crichd.streamit.workers.dev/?c=dazn3sp3&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",DAZN 4 Spain
+https://crichd.streamit.workers.dev/?c=dazn4sp4&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",LaLiga TV Hypermotion
+https://crichd.streamit.workers.dev/?c=laligatvhyper1&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",LaLiga TV Hypermotion 2
+https://crichd.streamit.workers.dev/?c=laligatvhyper2&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",ITV4
+https://crichd.streamit.workers.dev/?c=itv4&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",BBC One
+https://crichd.streamit.workers.dev/?c=hdchnl1&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",ITV 1
+https://crichd.streamit.workers.dev/?c=hdchnl4&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",BBC Two
+https://crichd.streamit.workers.dev/?c=hdchnl5&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Fox Soccer Plus
+https://crichd.streamit.workers.dev/?c=foxsoccer&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",TNT Sports 5
+https://crichd.streamit.workers.dev/?c=hdchnl10&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",TNT Sports 6
+https://crichd.streamit.workers.dev/?c=hdchnl11&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",TNT Sports 7
+https://crichd.streamit.workers.dev/?c=hdchnl12&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",TNT Sports 8
+https://crichd.streamit.workers.dev/?c=hdchnl13&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",TNT Sports 9
+https://crichd.streamit.workers.dev/?c=hdchnl14&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",TNT Sports 10
+https://crichd.streamit.workers.dev/?c=hdchnl15&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",Disney+ SP
+https://crichd.streamit.workers.dev/?c=deportesplus9&.m3u8|referer=https://executeandship.com/
+#EXTINF:-1 tvg-logo="" group-title="General",ESPN Deportes
+https://crichd.streamit.workers.dev/?c=espndeportess&.m3u8|referer=https://executeandship.com/
