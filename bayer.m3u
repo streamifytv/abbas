@@ -1,0 +1,44 @@
+#EXTM3U
+#PLAYLIST:Bayern Munich – Union Berlin
+
+#EXTINF:-1 tvg-id="f268d49114ae7b49b6d3a995ee0b13f4" tvg-name="Arena Sport Premium 3 RS - Stream 1" group-title="Extracted Streams",Arena Sport Premium 3 RS - Stream 1
+#EXTVLCOPT:http-referrer=https://iplayer.is/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 14)
+#EXTHTTP:{"Referer":"https://iplayer.is/"}
+https://netanjahu.hls.st/t/f268d49114ae7b49b6d3a995ee0b13f4/index.m3u8|referer=https://iplayer.is/
+
+#EXTINF:-1 tvg-id="9e561dbc27f0a0b27cddfc56af1d7ab9" tvg-name="Eleven Sports 1 PL - Stream 2" group-title="Extracted Streams",Eleven Sports 1 PL - Stream 2
+#EXTVLCOPT:http-referrer=https://iplayer.is/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 14)
+#EXTHTTP:{"Referer":"https://iplayer.is/"}
+https://netanjahu.hls.st/t/9e561dbc27f0a0b27cddfc56af1d7ab9/index.m3u8|referer=https://iplayer.is/
+
+#EXTINF:-1 tvg-id="e6783517f20cc7a51844d926be7e57db" tvg-name="beIN Sports 2 - Stream 3" group-title="Extracted Streams",beIN Sports 2 - Stream 3
+#EXTVLCOPT:http-referrer=https://iplayer.is/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 14)
+#EXTHTTP:{"Referer":"https://iplayer.is/"}
+https://netanjahu.hls.st/t/e6783517f20cc7a51844d926be7e57db/index.m3u8|referer=https://iplayer.is/
+
+#EXTINF:-1 tvg-id="70c9eab066b5dc780428a99b369f911a" tvg-name="DAZN 2 PT Q - Stream 4" group-title="Extracted Streams",DAZN 2 PT Q - Stream 4
+#EXTVLCOPT:http-referrer=https://iplayer.is/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 14)
+#EXTHTTP:{"Referer":"https://iplayer.is/"}
+https://netanjahu.hls.st/t/70c9eab066b5dc780428a99b369f911a/index.m3u8|referer=https://iplayer.is/
+
+#EXTINF:-1 tvg-id="41bcdb0509cc77eaded2feebf670b1b9" tvg-name="DAZN 2 PT HQ - Stream 5" group-title="Extracted Streams",DAZN 2 PT HQ - Stream 5
+#EXTVLCOPT:http-referrer=https://iplayer.is/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 14)
+#EXTHTTP:{"Referer":"https://iplayer.is/"}
+https://netanjahu.hls.st/t/41bcdb0509cc77eaded2feebf670b1b9/index.m3u8|referer=https://iplayer.is/
+
+#EXTINF:-1 tvg-id="24fff814d072cb80a8ff8f0c38ca72a1" tvg-name="SportKlub 1 - Stream 6" group-title="Extracted Streams",SportKlub 1 - Stream 6
+#EXTVLCOPT:http-referrer=https://iplayer.is/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 14)
+#EXTHTTP:{"Referer":"https://iplayer.is/"}
+https://netanjahu.hls.st/t/24fff814d072cb80a8ff8f0c38ca72a1/index.m3u8|referer=https://iplayer.is/
+
+#EXTINF:-1 tvg-id="72f073a8135408338ad6e9925686257b" tvg-name="Sky Bundesliga 1 - Stream 7" group-title="Extracted Streams",Sky Bundesliga 1 - Stream 7
+#EXTVLCOPT:http-referrer=https://iplayer.is/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 14)
+#EXTHTTP:{"Referer":"https://iplayer.is/"}
+https://netanjahu.hls.st/t/72f073a8135408338ad6e9925686257b/index.m3u8|referer=https://iplayer.is/
