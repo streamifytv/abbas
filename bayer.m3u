@@ -1,6 +1,4 @@
 #EXTM3U
-#PLAYLIST: @streamxi
-
-#EXTINF:-1 tvg-id="" tvg-name="Sky Sports F1" group-title="Extracted Streams",Sky Sports F1
-#EXTVLCOPT:http-referrer=https://gooz.aapmains.net
+#EXTINF:-1,Channel Name
+#EXTVLCOPT:http-referrer=https://gooz.aapmains.net/
 https://chatgpt.hereisman.net/playlist/57565/load-playlist.m3u8
