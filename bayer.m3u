@@ -1,8 +1,6 @@
 #EXTM3U
 #PLAYLIST: @streamxi
 
-#EXTINF:-1 tvg-id="" tvg-name="Sky Sports F1" group-title="Extracted Streams",Arena Sport Premium 3 RS - Stream 1
-#EXTVLCOPT:http-referrer=https://gooz.aapmains.net/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 14)
-#EXTHTTP:{"Referer":"https://gooz.aapmains.net/"}
-https://chatgpt.hereisman.net/playlist/57392/load-playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Sky Sports F1" group-title="Extracted Streams",Sky Sports F1
+#EXTVLCOPT:http-referrer=https://gooz.aapmains.net
+https://chatgpt.hereisman.net/playlist/57565/load-playlist.m3u8
