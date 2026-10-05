@@ -1,4 +1,5 @@
 #EXTM3U
-#EXTINF:-1,Channel Name
-#EXTVLCOPT:http-referrer=https://gooz.aapmains.net/
-https://chatgpt.hereisman.net/playlist/57565/load-playlist.m3u8
+
+#EXTINF:-1,Karimianian Stream
+#EXTVLCOPT:http-referrer=https://gsports.lat/
+https://karimianian.store/folder2/6/v1/
